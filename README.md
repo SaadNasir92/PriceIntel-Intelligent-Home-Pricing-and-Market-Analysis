@@ -53,7 +53,7 @@ def adjust_mixed_sentiment(text, score):
 
 ![Sentiment Score Distribution](sentiment_distribution.png)
 
-*Note: The image above is a placeholder. In an actual project, you would generate this graph from your data and include it in the repository.*
+*Note: Placeholder, will be updated*
 
 ## Feature List
 
