@@ -1,33 +1,108 @@
-# Project Plan: Predictive Pricing Model for New Communities
+# Housing Price Prediction with Sentiment Analysis
 
-Overview
-This project aims to develop a predictive pricing model for new housing communities using synthetic data. The model will help segment the market through clustering analysis, providing actionable insights for targeted marketing and pricing strategies. The final outcome will include an interactive front-end interface that allows users to enter data and receive live price predictions.
+## Project Overview
 
-Project Goals
-Predict House Prices: Develop a traditional machine learning model to predict house prices based on synthetic data that mimics real-world industry patterns.
-Clustering Analysis: Use the predicted prices and potentially actual prices as features in clustering to segment the market and offer tailored recommendations.
-Interactive Front-End Interface: Create a user-friendly interface where builders can input data and receive live predictions, enhancing the project's practical application.
-Approach
-1. Data Generation
-Synthetic Data Creation: Generate realistic synthetic data based on industry patterns, realistic ranges, distributions, and correlations.
-Features: Include location, square footage, upgrade score, demographic information, and other relevant factors.
-2. Predictive Pricing Model
-Model Selection: Utilize traditional machine learning models (e.g., linear regression, random forest) for price prediction.
-Model Training: Train the model using the synthetic data, focusing on predicting accurate house prices.
-3. Clustering Analysis
-Clustering Process: Use the predicted and potentially actual prices as input features for clustering algorithms (e.g., k-means, hierarchical clustering).
-Segment Identification: Identify market segments based on the clustering results, providing insights for targeted strategies.
-4. Front-End Development
-Interface Design: Develop a simple, user-friendly front-end interface where users can input data and receive live predictions.
-Integration: Ensure smooth integration between the back-end model and the front-end interface to deliver real-time results.
-5. Scenario Testing & Recommendations
-Scenario Analysis: Conduct hypothetical scenario testing to evaluate the model's performance and reliability.
-Pretend Recommendations: Provide pretend recommendations based on the clustering insights and synthetic data, treating the data as if it were true.
-Final Deliverables
-Predictive Model: A well-documented, trained machine learning model for predicting house prices.
-Clustering Insights: A detailed analysis of the market segments identified through clustering.
-Interactive Interface: A fully functional front-end interface for live price predictions.
-Project Documentation: Comprehensive documentation of the entire process, including methodologies, assumptions, and potential real-world applications.
-Flexibility and Future Adaptation
-Adaptable Methodology: The project plan is designed to be adaptable, allowing for refinement with real data in the future.
-Proof of Concept: This project serves as a proof of concept, showcasing methodologies that could be applied to real-world scenarios.
+This project aims to develop a predictive pricing model for new housing communities using synthetic data, enhanced by natural language processing (NLP) for sentiment analysis and clustering for market segmentation. The final deliverable will be an interactive user interface for live price predictions and recommendations.
+
+### Key Components
+1. Synthetic Data Generation
+2. NLP Sentiment Analysis
+3. Clustering Analysis (in development)
+4. Predictive Pricing Model (in development)
+5. Interactive User Interface (in development)
+
+## Current Progress
+
+### 1. Synthetic Data Generation
+- **Status**: Completed
+- **Tool Used**: CTGANSynthesizer
+- **Dataset Size**: 250,000 rows
+- **Validation**: Initial validation confirms adherence to predefined rules and distributions
+
+### 2. NLP Sentiment Analysis
+- **Status**: Completed
+- **Tool Used**: VADER (Valence Aware Dictionary and sEntiment Reasoner)
+- **Key Implementations**:
+  - Custom lexicon for domain-specific terms
+  - Refined scoring mechanism for mixed sentiments
+  - Integration of sentiment scores into the main dataset
+
+#### Sample Code: Custom Lexicon Addition
+
+```python
+custom_lexicon = {
+    'upgrade': 2.0, 'spacious': 1.5, 'delay': -1.5, 'issue': -1.0,
+    'smooth': 1.0, 'fantastic': 2.0, 'terrible': -2.0, 'happy': 1.5, 'love': 2.0
+}
+sia.lexicon.update(custom_lexicon)
+```
+
+#### Sample Code: Mixed Sentiment Adjustment
+
+```python
+def adjust_mixed_sentiment(text, score):
+    if "but" in text.lower() or "however" in text.lower():
+        return score * 0.75 if score > 0 else score * 1.25
+    return score
+```
+
+#### Results
+- Sentiment score range: -0.4588 to 0.7424
+- Mean sentiment score: 0.073690
+- Standard deviation: 0.370224
+
+![Sentiment Score Distribution](sentiment_distribution.png)
+
+*Note: The image above is a placeholder. In an actual project, you would generate this graph from your data and include it in the repository.*
+
+## Feature List
+
+### Demographic Features
+- City, Zipcode, Marital Status, Family Size, Credit Score, Current Residence, Annual Income, DTI, Location
+
+### Structural Features
+- Square Footage, Upgrade Score, Bedroom Count, Bathroom Count, Master Location, Lot Size
+
+### Loan-Related Features
+- Closing Date, Appraised Value, Price, Closing Interest Rate, Monthly Payment, Loan Term, Feedback
+
+### Economic Features
+- Inflation Rate, Unemployment Rate, Current Market Interest Rate, Year Closed, Median/Mean Price of Nearby Homes
+
+### Sentiment Feature
+- Sentiment score derived from feedback (added by NLP module)
+
+## In Development
+
+### 3. Clustering Analysis
+- Objective: Perform market segmentation based on demographic and housing preference data
+- Planned Approach: Utilize K-means or DBSCAN algorithms
+- Integration: Incorporate sentiment scores from NLP analysis
+
+### 4. Predictive Pricing Model
+- Objective: Develop a model to predict housing prices based on all available features
+- Planned Approach: Evaluate multiple algorithms (e.g., Random Forest, XGBoost, Neural Networks)
+- Integration: Utilize sentiment scores and cluster assignments as input features
+
+### 5. Interactive User Interface
+- Objective: Create a user-friendly interface for live price predictions and recommendations
+- Planned Features:
+  - Input form for user to enter housing and demographic data
+  - Real-time price prediction display
+  - Visualization of key factors influencing the prediction
+  - Recommendations based on market segmentation
+
+## Next Steps
+
+1. Begin clustering analysis, incorporating sentiment scores
+2. Develop and train the predictive pricing model
+3. Design and implement the structure of the interactive user interface
+4. Conduct thorough testing and validation of all components
+5. Prepare final presentation, highlighting the potential of clustering analysis for targeted marketing strategies
+
+## Installation and Usage
+
+(To be updated as development progresses)
+
+
+
