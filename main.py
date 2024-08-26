@@ -14,7 +14,7 @@ def main():
     scaler_types = ['standard', 'robust', 'minmax']
     results = {}
 
-    sample_size = 1000  # Dataset size to be changed here
+    sample_size = 50000  # Dataset size to be changed here
     feature_names = None
 
     for scaler_type in scaler_types:
