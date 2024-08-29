@@ -32,8 +32,13 @@ class ModelTrainer:
             'nn': self.build_nn_model
         }
 
+    # Not working when trying to save the model to a pickle file, approaching it differently below.
+    # def build_nn_model(self, input_dim):
+    #     return lambda: create_model(input_dim)
+    
     def build_nn_model(self, input_dim):
-        return lambda: create_model(input_dim)
+        model = create_model(input_dim)
+        return model
 
     def train_model(self, X_train, y_train, model_type='rf', params=None):
         if model_type not in self.models:

@@ -1,11 +1,15 @@
 from src.data_preprocessing import DataPreprocessor
 from src.feature_engineering import FeatureEngineer
-from src.model_training import ModelTrainer
+from src.model_training import ModelTrainer, create_model
 from src.evaluation import ModelEvaluator
 from src.utils import save_model, load_model
 import pandas as pd
+import time
+import psutil
 
 def main():
+    start_time = time.time()
+    process = psutil.Process()
     preprocessor = DataPreprocessor()
     feature_engineer = FeatureEngineer()
     model_trainer = ModelTrainer()
@@ -14,7 +18,7 @@ def main():
     scaler_types = ['standard', 'robust', 'minmax']
     results = {}
 
-    sample_size = 50000  # Dataset size to be changed here
+    sample_size = 100  # Dataset size to be changed here
     feature_names = None
 
     for scaler_type in scaler_types:
@@ -109,6 +113,13 @@ def main():
     # Plot predictions for the best model on full dataset
     evaluator.plot_predictions(best_model_final, X_test_engineered_final, y_test_final)
     """
+    
+    end_time = time.time()
+    # check how much time it takes per pipeline run
+    print(f'Total execution time: {end_time - start_time:.2f} seconds')  # noqa: F821
+    # check the max memory it user per pipeline run
+
+    print(f"Peak memory usage: {process.memory_info().peak_wset / (1024 * 1024):.2f} MB")  # noqa: F821
 
 if __name__ == "__main__":
     main()
