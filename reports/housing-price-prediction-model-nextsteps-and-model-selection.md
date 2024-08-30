@@ -6,21 +6,57 @@
    - Modified `build_nn_model` in `ModelTrainer` class to use a regular function instead of a lambda to enable pickling.
 
 2. **Implement additional features** ✅ Completed
-   - Add time tracking for training and evaluation of each model. - ✅ Completed
-   - Implement memory usage tracking to monitor resource consumption. - ✅ Completed
-   - Add feature importance plotting for tree-based models (Random Forest and Gradient Boosting). ✅ Completed
-   - Implement learning curves to assess overfitting/underfitting for each model. ✅ Completed
+   - Add time tracking for training and evaluation of each model. - 
+   - Implement memory usage tracking to monitor resource consumption. - 
+   - Add feature importance plotting for tree-based models (Random Forest and Gradient Boosting). 
+   - Implement learning curves to assess overfitting/underfitting for each model. 
 
 3. **Optimize for larger datasets**
    - Implement batch processing for data loading and model training.
    - Use memory-efficient data types (e.g., float32 instead of float64) where appropriate.
    - Implement feature selection to reduce dimensionality before model training.
 
+   ## Cross-Validation Implementation
+
+   ### Objective
+   Implement cross-validation in the main pipeline to ensure more robust model evaluation and support hyperparameter tuning.
+
+   ### Key Steps
+   1. Modify `ModelTrainer` class to incorporate cross-validation:
+      - Add a `cv_split` parameter to the `train_model` method.
+      - Use `cross_val_score` or `cross_validate` from scikit-learn for model evaluation.
+   2. Update `ModelEvaluator` class:
+      - Modify `evaluate_model` method to handle cross-validation results.
+      - Add a method to calculate and report average cross-validation scores.
+   3. Adjust `main.py` to use cross-validation:
+      - Add a parameter for number of CV folds (e.g., `n_cv_folds = 5`).
+      - Pass CV parameter to model training and evaluation functions.
+
+   ### Implementation Details
+   - Use `StratifiedKFold` for classification tasks or `KFold` for regression tasks.
+   - Ensure consistency in random state across all CV splits for reproducibility.
+   - Handle cases where models may not inherently support cross-validation (e.g., Neural Networks with KerasRegressor).
+
+   ### Expected Outcome
+   - More reliable performance estimates for each model.
+   - Ability to compare models based on cross-validated scores.
+   - Foundation for implementing hyperparameter tuning with cross-validation.
+
+   ### Potential Challenges
+   - Increased computation time due to multiple model fits per evaluation.
+   - Handling of Neural Network models in cross-validation context.
+
+   ### Next Steps After Implementation
+   - Verify cross-validation results against single-split evaluations.
+   - Use cross-validated scores to guide hyperparameter tuning process.
+   - Update model comparison and selection logic to use cross-validated metrics.
+
+
 4. **Hyperparameter tuning**
    - Implement basic hyperparameter tuning for Ridge, Random Forest, and Gradient Boosting models.
    - Investigate optimal architecture and hyperparameters for Neural Network model to improve performance.
 
-## Model Selection
+## Model Selection ✅ Completed
 
 Based on the results from our two 50,000 record runs, we've decided to focus on the following models:
 
@@ -45,6 +81,7 @@ Based on the results from our two 50,000 record runs, we've decided to focus on 
    - Performance varied between runs (best in first, underperformed in second).
    - Requires further investigation and optimization.
    - Keep for potential improvements with architecture adjustments and hyperparameter tuning.
+   - Fix the tensorflow error (guide to fix in tensorflowerror markdown file) ✅ Completed
 
 ### Models to Remove ✅ Completed
 

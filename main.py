@@ -4,12 +4,11 @@ from src.model_training import ModelTrainer
 from src.evaluation import ModelEvaluator
 from src.utils import save_model
 import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import pandas as pd
 import time
 import psutil
+
+matplotlib.use("Agg")
 
 
 def main():
@@ -20,10 +19,10 @@ def main():
     model_trainer = ModelTrainer()
     evaluator = ModelEvaluator()
 
-    scaler_types = ["standard", "robust", "minmax"]
+    scaler_types = ["standard"]  # ["standard", "robust", "minmax"]
     results = {}
 
-    sample_size = 200  # Dataset size to be changed here
+    sample_size = 50  # Dataset size to be changed here
     feature_names = None
 
     for scaler_type in scaler_types:
@@ -117,12 +116,18 @@ def main():
             selected_features,
             f"{type(best_model).__name__}_{best_scaler}",
         )
-
-    # Save the best model
-    save_model(
-        best_model,
-        f"best_model_{best_scaler}_{type(best_model).__name__}_{sample_size}",
-    )
+    # saving best model
+    if "KerasRegressor" in str(type(best_model)):
+        print(f"Best model type: {type(best_model)}")
+        print(f"Best model attributes: {dir(best_model)}")
+        model_trainer.save_keras_model(
+            best_model, f"models/best_model_{best_scaler}_KerasRegressor_{sample_size}"
+        )
+    else:
+        save_model(
+            best_model,
+            f"best_model_{best_scaler}_{type(best_model).__name__}_{sample_size}",
+        )
 
     # Plot predictions for the best model
     evaluator.plot_predictions(best_model, X_test_best_engineered, y_test)

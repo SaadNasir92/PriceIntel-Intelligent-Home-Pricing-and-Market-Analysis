@@ -13,6 +13,10 @@ class ModelEvaluator:
         os.makedirs(self.plot_dir, exist_ok=True)
 
     def evaluate_model(self, model, X_test, y_test):
+        # Convert data to float32 if it's a KerasRegressor
+        if "KerasRegressor" in str(type(model)):
+            X_test = X_test.astype(np.float32)
+            y_test = y_test.astype(np.float32)
         y_pred = model.predict(X_test)
         mse = mean_squared_error(y_test, y_pred)
         rmse = np.sqrt(mse)

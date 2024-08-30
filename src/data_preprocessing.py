@@ -6,7 +6,6 @@ from sklearn.preprocessing import (
     RobustScaler,
     MinMaxScaler,
     OneHotEncoder,
-    OrdinalEncoder,
 )
 from sklearn.compose import ColumnTransformer
 
@@ -105,6 +104,11 @@ class DataPreprocessor:
         X_train_preprocessed, X_test_preprocessed = self.apply_preprocessing(
             X_train_encoded, X_test_encoded, scaler_type
         )
+        # Convert all data to float32
+        X_train_preprocessed = X_train_preprocessed.astype(np.float32)
+        X_test_preprocessed = X_test_preprocessed.astype(np.float32)
+        y_train = y_train.astype(np.float32)
+        y_test = y_test.astype(np.float32)
 
         return X_train_preprocessed, X_test_preprocessed, y_train, y_test, feature_names
 

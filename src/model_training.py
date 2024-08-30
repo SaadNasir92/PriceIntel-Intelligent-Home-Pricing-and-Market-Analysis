@@ -1,11 +1,12 @@
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.linear_model import LinearRegression, Lasso, Ridge
-from sklearn.svm import SVR
+from sklearn.linear_model import Ridge
 from sklearn.model_selection import GridSearchCV
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Input
 from tensorflow.keras.optimizers import Adam
 from scikeras.wrappers import KerasRegressor
+import os
+import joblib
 
 
 def create_model(input_dim):
@@ -37,8 +38,17 @@ class ModelTrainer:
     ## Worked, keeping newer version (defining the model creation function outside the class)
 
     def build_nn_model(self, input_dim):
-        model = create_model(input_dim)
-        return model
+        return create_model(input_dim)
+
+    def save_keras_model(self, model, filename):
+        print(f"Saving KerasRegressor model to {filename}")
+
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+        # Save the entire KerasRegressor object
+        joblib.dump(model, filename)
+        print(f"KerasRegressor model saved to {filename}")
 
     def train_model(self, X_train, y_train, model_type="rf", params=None):
         if model_type not in self.models:
@@ -46,7 +56,8 @@ class ModelTrainer:
 
         if model_type == "nn":
             model = KerasRegressor(
-                model=self.build_nn_model(X_train.shape[1]),
+                model=create_model,
+                input_dim=X_train.shape[1],
                 epochs=100,
                 batch_size=32,
                 verbose=0,
