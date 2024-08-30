@@ -5,7 +5,7 @@
 1. **Fix model saving issue** - ✅ Completed
    - Modified `build_nn_model` in `ModelTrainer` class to use a regular function instead of a lambda to enable pickling.
 
-2. **Implement additional features**
+2. **Implement additional features** ✅ Completed
    - Add time tracking for training and evaluation of each model. - ✅ Completed
    - Implement memory usage tracking to monitor resource consumption. - ✅ Completed
    - Add feature importance plotting for tree-based models (Random Forest and Gradient Boosting). ✅ Completed
@@ -24,7 +24,7 @@
 
 Based on the results from our two 50,000 record runs, we've decided to focus on the following models:
 
-### Models to Keep
+### Models to Keep ✅ Completed
 
 1. **Ridge Regression**
    - Represents linear models with regularization.
@@ -46,7 +46,7 @@ Based on the results from our two 50,000 record runs, we've decided to focus on 
    - Requires further investigation and optimization.
    - Keep for potential improvements with architecture adjustments and hyperparameter tuning.
 
-### Models to Remove
+### Models to Remove ✅ Completed
 
 1. **Support Vector Regression (SVR)**
    - Consistently underperformed across both 50K runs.

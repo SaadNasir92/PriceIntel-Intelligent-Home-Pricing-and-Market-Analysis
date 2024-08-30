@@ -7,55 +7,55 @@ from tensorflow.keras.layers import Dense, Dropout, Input
 from tensorflow.keras.optimizers import Adam
 from scikeras.wrappers import KerasRegressor
 
+
 def create_model(input_dim):
-    model = Sequential([
-        Input(shape=(input_dim,)),
-        Dense(64, activation='relu'),
-        Dropout(0.2),
-        Dense(32, activation='relu'),
-        Dropout(0.2),
-        Dense(16, activation='relu'),
-        Dense(1)
-    ])
-    model.compile(optimizer=Adam(learning_rate=0.001), loss='mse')
+    model = Sequential(
+        [
+            Input(shape=(input_dim,)),
+            Dense(64, activation="relu"),
+            Dropout(0.2),
+            Dense(32, activation="relu"),
+            Dropout(0.2),
+            Dense(16, activation="relu"),
+            Dense(1),
+        ]
+    )
+    model.compile(optimizer=Adam(learning_rate=0.001), loss="mse")
     return model
+
 
 class ModelTrainer:
     def __init__(self):
         self.models = {
-            'linear': LinearRegression(),
-            'lasso': Lasso(max_iter=20000, tol=0.0001, alpha=0.1),
-            'ridge': Ridge(),
-            'rf': RandomForestRegressor(),
-            'gb': GradientBoostingRegressor(),
-            'svr': SVR(),
-            'nn': self.build_nn_model
+            "ridge": Ridge(),
+            "rf": RandomForestRegressor(),
+            "gb": GradientBoostingRegressor(),
+            "nn": self.build_nn_model,
         }
 
     # Not working when trying to save the model to a pickle file, approaching it differently below.
-    # def build_nn_model(self, input_dim):
-    #     return lambda: create_model(input_dim)
-    
+    ## Worked, keeping newer version (defining the model creation function outside the class)
+
     def build_nn_model(self, input_dim):
         model = create_model(input_dim)
         return model
 
-    def train_model(self, X_train, y_train, model_type='rf', params=None):
+    def train_model(self, X_train, y_train, model_type="rf", params=None):
         if model_type not in self.models:
             raise ValueError(f"Unsupported model type: {model_type}")
 
-        if model_type == 'nn':
+        if model_type == "nn":
             model = KerasRegressor(
                 model=self.build_nn_model(X_train.shape[1]),
                 epochs=100,
                 batch_size=32,
-                verbose=0
+                verbose=0,
             )
         else:
             model = self.models[model_type]
 
         if params:
-            model = GridSearchCV(model, params, cv=5, scoring='neg_mean_squared_error')
+            model = GridSearchCV(model, params, cv=5, scoring="neg_mean_squared_error")
 
         model.fit(X_train, y_train)
 
