@@ -24,7 +24,7 @@ class ModelTrainer:
     def __init__(self):
         self.models = {
             'linear': LinearRegression(),
-            'lasso': Lasso(),
+            'lasso': Lasso(max_iter=20000, tol=0.0001, alpha=0.1),
             'ridge': Ridge(),
             'rf': RandomForestRegressor(),
             'gb': GradientBoostingRegressor(),

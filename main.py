@@ -1,8 +1,11 @@
 from src.data_preprocessing import DataPreprocessor
 from src.feature_engineering import FeatureEngineer
-from src.model_training import ModelTrainer, create_model
+from src.model_training import ModelTrainer
 from src.evaluation import ModelEvaluator
-from src.utils import save_model, load_model
+from src.utils import save_model
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.pyplot as plt
 import pandas as pd
 import time
 import psutil
@@ -18,7 +21,7 @@ def main():
     scaler_types = ['standard', 'robust', 'minmax']
     results = {}
 
-    sample_size =  50000 # Dataset size to be changed here
+    sample_size =  200 # Dataset size to be changed here
     feature_names = None
 
     for scaler_type in scaler_types:
@@ -51,7 +54,7 @@ def main():
 
         # Train and evaluate models
         trained_models = model_trainer.train_multiple_models(X_train_engineered, y_train)
-        scaler_results = evaluator.evaluate_multiple_models(trained_models, X_test_engineered, y_test)
+        scaler_results = evaluator.evaluate_multiple_models(trained_models, X_test_engineered, y_test, X_train_engineered, y_train)
         
         results[scaler_type] = {
             'metrics': scaler_results,
@@ -82,6 +85,17 @@ def main():
         None, 
         feature_names
     )
+    
+    
+    # Plot feature importance for the best model (if it's RF or GB)
+    if type(best_model).__name__ in ['RandomForestRegressor', 'GradientBoostingRegressor']:
+        evaluator.plot_feature_importance(
+            best_model, 
+            X_test_best_engineered, 
+            y_test, 
+            selected_features, 
+            f"{type(best_model).__name__}_{best_scaler}"
+        )
     
     # Save the best model
     save_model(best_model, f'best_model_{best_scaler}_{type(best_model).__name__}_{sample_size}')

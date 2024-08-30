@@ -1,4 +1,7 @@
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.inspection import permutation_importance
+from sklearn.model_selection import learning_curve
+from joblib import parallel_backend
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -43,11 +46,12 @@ class ModelEvaluator:
         plt.savefig(os.path.join(self.plot_dir, 'actual_vs_predicted.png'))
         plt.close()
 
-    def evaluate_multiple_models(self, models, X_test, y_test):
+    def evaluate_multiple_models(self, models, X_test, y_test, X_train, y_train):
         results = {}
         for model_name, model in models.items():
             print(f"Evaluating {model_name} model...")
             results[model_name] = self.evaluate_model(model, X_test, y_test)
+            self.plot_learning_curve(model, X_train, y_train, model_name)
         return results
 
     def compare_models_across_scalers(self, results):
@@ -83,3 +87,42 @@ class ModelEvaluator:
                     best_model = scaler_results['models'][model_name]
 
         return best_scaler, best_model
+    
+    def plot_feature_importance(self, model, X, y, feature_names, model_name, n_top_features=20):
+        if hasattr(model, 'feature_importances_'):
+            importances = model.feature_importances_
+            indices = np.argsort(importances)[::-1]
+        else:
+            result = permutation_importance(model, X, y, n_repeats=10, random_state=42)
+            importances = result.importances_mean
+            indices = np.argsort(importances)[::-1]
+
+        top_indices = indices[:n_top_features]
+        plt.figure(figsize=(10, 8))
+        plt.title(f"Top {n_top_features} Feature Importances for {model_name}")
+        plt.bar(range(n_top_features), importances[top_indices])
+        plt.xticks(range(n_top_features), [feature_names[i] for i in top_indices], rotation=90)
+        plt.tight_layout()
+        plt.savefig(os.path.join(self.plot_dir, f'{model_name}_feature_importance.png'))
+        plt.close()
+        
+    def plot_learning_curve(self, model, X, y, model_name):
+        with parallel_backend('threading', n_jobs=2):
+            train_sizes, train_scores, test_scores = learning_curve(
+                model, X, y, cv=5,
+                train_sizes=np.linspace(0.1, 1.0, 5),
+                scoring="neg_mean_squared_error"
+            )
+        train_scores_mean = -np.mean(train_scores, axis=1)
+        test_scores_mean = -np.mean(test_scores, axis=1)
+
+        plt.figure()
+        plt.title(f"Learning Curve for {model_name}")
+        plt.xlabel("Training examples")
+        plt.ylabel("Mean Squared Error")
+        plt.plot(train_sizes, train_scores_mean, 'o-', color="r", label="Training score")
+        plt.plot(train_sizes, test_scores_mean, 'o-', color="g", label="Cross-validation score")
+        plt.legend(loc="best")
+        plt.tight_layout()
+        plt.savefig(os.path.join(self.plot_dir, f'{model_name}_learning_curve.png'))
+        plt.close()
