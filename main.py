@@ -19,10 +19,10 @@ def main():
     model_trainer = ModelTrainer()
     evaluator = ModelEvaluator()
 
-    scaler_types = ["standard"]  # ["standard", "robust", "minmax"]
+    scaler_types = ["standard", "robust", "minmax"]
     results = {}
 
-    sample_size = 50  # Dataset size to be changed here
+    sample_size = 50000  # Dataset size to be changed here
     feature_names = None
 
     for scaler_type in scaler_types:
@@ -63,7 +63,7 @@ def main():
 
         # Train and evaluate models
         trained_models = model_trainer.train_multiple_models(
-            X_train_engineered, y_train
+            X_train_engineered, y_train, cv=5
         )
         scaler_results = evaluator.evaluate_multiple_models(
             trained_models, X_test_engineered, y_test, X_train_engineered, y_train
@@ -71,7 +71,7 @@ def main():
 
         results[scaler_type] = {
             "metrics": scaler_results,
-            "models": trained_models,
+            "models": {k: v[0] for k, v in trained_models.items()},
             "feature_engineer": feature_engineer,
         }
 
@@ -103,6 +103,8 @@ def main():
         None,
         feature_names,
     )
+
+    print(evaluator.summarize_results(results))
 
     # Plot feature importance for the best model (if it's RF or GB)
     if type(best_model).__name__ in [

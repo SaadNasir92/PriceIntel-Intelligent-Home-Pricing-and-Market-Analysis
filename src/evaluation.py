@@ -5,6 +5,7 @@ from joblib import parallel_backend
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import pandas as pd
 
 
 class ModelEvaluator:
@@ -61,9 +62,13 @@ class ModelEvaluator:
 
     def evaluate_multiple_models(self, models, X_test, y_test, X_train, y_train):
         results = {}
-        for model_name, model in models.items():
+        for model_name, (model, cv_mean, cv_std) in models.items():
             print(f"Evaluating {model_name} model...")
-            results[model_name] = self.evaluate_model(model, X_test, y_test)
+            results[model_name] = {
+                **self.evaluate_model(model, X_test, y_test),
+                "CV_MSE_mean": cv_mean,
+                "CV_MSE_std": cv_std,
+            }
             self.plot_learning_curve(model, X_train, y_train, model_name)
         return results
 
@@ -154,3 +159,19 @@ class ModelEvaluator:
         plt.tight_layout()
         plt.savefig(os.path.join(self.plot_dir, f"{model_name}_learning_curve.png"))
         plt.close()
+
+    def summarize_results(self, results):
+        summary = {}
+        for scaler, scaler_results in results.items():
+            summary[scaler] = {
+                model_name: {
+                    "CV_MSE_mean": metrics["CV_MSE_mean"],
+                    "CV_MSE_std": metrics["CV_MSE_std"],
+                    "Test_RMSE": metrics["RMSE"],
+                    "Test_R2": metrics["R2"],
+                }
+                for model_name, metrics in scaler_results["metrics"].items()
+            }
+        summary_df = pd.DataFrame(summary)
+        summary_df.to_csv("outputs/summary.csv", index=True)
+        return summary_df

@@ -13,10 +13,10 @@
 
 3. **Optimize for larger datasets**
    - Implement batch processing for data loading and model training.
-   - Use memory-efficient data types (e.g., float32 instead of float64) where appropriate.
+   - Use memory-efficient data types (e.g., float32 instead of float64) where appropriate. ✅ Completed
    - Implement feature selection to reduce dimensionality before model training.
 
-   ## Cross-Validation Implementation
+   ## Cross-Validation Implementation ✅ Completed
 
    ### Objective
    Implement cross-validation in the main pipeline to ensure more robust model evaluation and support hyperparameter tuning.
@@ -31,26 +31,6 @@
    3. Adjust `main.py` to use cross-validation:
       - Add a parameter for number of CV folds (e.g., `n_cv_folds = 5`).
       - Pass CV parameter to model training and evaluation functions.
-
-   ### Implementation Details
-   - Use `StratifiedKFold` for classification tasks or `KFold` for regression tasks.
-   - Ensure consistency in random state across all CV splits for reproducibility.
-   - Handle cases where models may not inherently support cross-validation (e.g., Neural Networks with KerasRegressor).
-
-   ### Expected Outcome
-   - More reliable performance estimates for each model.
-   - Ability to compare models based on cross-validated scores.
-   - Foundation for implementing hyperparameter tuning with cross-validation.
-
-   ### Potential Challenges
-   - Increased computation time due to multiple model fits per evaluation.
-   - Handling of Neural Network models in cross-validation context.
-
-   ### Next Steps After Implementation
-   - Verify cross-validation results against single-split evaluations.
-   - Use cross-validated scores to guide hyperparameter tuning process.
-   - Update model comparison and selection logic to use cross-validated metrics.
-
 
 4. **Hyperparameter tuning**
    - Implement basic hyperparameter tuning for Ridge, Random Forest, and Gradient Boosting models.
@@ -115,7 +95,7 @@ Based on the results from our two 50,000 record runs, we've decided to focus on 
 
 ## Resource Considerations
 
-- Previous run (50,000 records):
+- Previous run (50,000 records) AUG 29th 8PM:
   - Runtime: ~18.5 minutes
   - Peak memory usage: 3143.38 MB
   - Consider cloud computing options if resource usage increases significantly with 75,000 records
@@ -130,8 +110,8 @@ Based on the results from our two 50,000 record runs, we've decided to focus on 
 ## Next Steps
 
 1. Implement hyperparameter tuning for Gradient Boosting and Random Forest models.
-2. Investigate the drop in Neural Network performance and experiment with different architectures.
+2. Investigate the drop in Neural Network performance and experiment with different architectures. 
 3. Analyze feature importance from the best-performing models (Gradient Boosting and Random Forest).
-4. Implement the additional features listed in the Immediate Actions section.
+4. Implement the additional features listed in the Immediate Actions section. 
 5. Prepare for the 75,000 record run with the optimized models and configurations.
 6. Continue monitoring performance and resource usage to ensure scalability.
