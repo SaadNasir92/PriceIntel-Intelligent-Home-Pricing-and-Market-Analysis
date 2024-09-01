@@ -173,5 +173,4 @@ class ModelEvaluator:
                 for model_name, metrics in scaler_results["metrics"].items()
             }
         summary_df = pd.DataFrame(summary)
-        summary_df.to_csv("outputs/summary.csv", index=True)
-        return summary_df
+        return summary_df.to_csv("outputs/summary.csv", index=True)

@@ -30,7 +30,7 @@ def main():
     scaler_types = ["standard", "robust", "minmax"]
     results = {}
 
-    sample_size = 50000  # Dataset size to be changed here
+    sample_size = 150  # Dataset size to be changed here
     feature_names = None
 
     for scaler_type in scaler_types:
@@ -80,7 +80,10 @@ def main():
         results[scaler_type] = {
             "metrics": scaler_results,
             "models": {k: v[0] for k, v in trained_models.items()},
-            "feature_engineer": feature_engineer,
+            "feature_info": {
+                "selected_feature_indices": feature_engineer.selected_feature_indices,
+                "poly": feature_engineer.poly,
+            },
         }
 
     # Compare models across all scalers
@@ -107,7 +110,13 @@ def main():
     )
 
     # Re-engineer features for the best scaled test data using the stored feature engineer
-    best_feature_engineer = results[best_scaler]["feature_engineer"]
+    best_feature_info = results[best_scaler]["feature_info"]
+    best_feature_engineer = FeatureEngineer()
+    best_feature_engineer.selected_feature_indices = best_feature_info[
+        "selected_feature_indices"
+    ]
+    best_feature_engineer.poly = best_feature_info["poly"]
+
     _, X_test_best_engineered, _ = best_feature_engineer.engineer_features(
         None,
         X_test_best_scaled.to_numpy()
@@ -118,7 +127,8 @@ def main():
     )
 
     logger.debug("Feature re-engineering completed")
-    print(evaluator.summarize_results(results))
+    # summary results to csv
+    evaluator.summarize_results(results)
 
     # Plot feature importance for the best model (if it's RF or GB)
     if type(best_model).__name__ in [
