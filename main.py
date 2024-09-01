@@ -7,8 +7,16 @@ import matplotlib
 import pandas as pd
 import time
 import psutil
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 matplotlib.use("Agg")
+# configuring logger to stop the flood of font debugging messages
+matplotlib.set_loglevel("WARNING")
+logging.getLogger("matplotlib.font_manager").disabled = True
+logging.getLogger("matplotlib.pyplot").disabled = True
 
 
 def main():
@@ -79,11 +87,16 @@ def main():
     evaluator.compare_models_across_scalers(results)
 
     # Find the best model across all scalers
+    logger.debug("Starting best model selection")
     best_scaler, best_model = evaluator.find_best_model(results)
+    logger.debug(
+        f"Best model selected: {type(best_model).__name__} with {best_scaler} scaling"
+    )
     print(
         f"\nBest overall model: {type(best_model).__name__} with {best_scaler} scaling"
     )
 
+    logger.debug("Starting feature re-engineering for best model")
     # Re-scale the test data using the best scaler
     _, X_test_best_scaled, _, _, _ = preprocessor.preprocess_data(
         "data/processed/processed_synthetic_cleaned.csv",
@@ -104,6 +117,7 @@ def main():
         feature_names,
     )
 
+    logger.debug("Feature re-engineering completed")
     print(evaluator.summarize_results(results))
 
     # Plot feature importance for the best model (if it's RF or GB)
@@ -131,8 +145,11 @@ def main():
             f"best_model_{best_scaler}_{type(best_model).__name__}_{sample_size}",
         )
 
+    logger.debug("Starting plot_predictions")
     # Plot predictions for the best model
     evaluator.plot_predictions(best_model, X_test_best_engineered, y_test)
+    logger.debug("plot_predictions completed")
+
     """
     # Full dataset processing is commented out for now for testing
 
