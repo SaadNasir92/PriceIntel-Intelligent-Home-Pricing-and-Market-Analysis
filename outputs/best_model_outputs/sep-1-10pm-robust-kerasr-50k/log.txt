@@ -1,0 +1,100 @@
+saad@DESKTOP-H0RJ60L MINGW64 C:/Users/saad/AppData/Local/Programs/Microsoft VS Code (main)
+$ "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/my-portfolio/.venv/Scripts/python.exe" "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/my-portfolio/main.py"
+2024-09-01 18:45:32.386827: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-09-01 18:45:38.629340: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+DEBUG:matplotlib.pyplot:Loaded backend Agg version v2.2.
+
+Processing with standard scaler:
+X_train_scaled shape: (40000, 1495)
+X_test_scaled shape: (10000, 1495)
+y_train shape: (40000,)
+Number of feature names: 1495
+INFO:src.feature_engineering:Using features: ['city_Aubrey' 'city_Celina' 'city_Dallas' ... 'year_closed'
+ 'median_price_of_nearby_homes' 'final_sentiment_score']
+INFO:src.feature_engineering:X_train shape: (40000, 1495)
+INFO:src.feature_engineering:X_test shape: (10000, 1495)
+INFO:src.feature_engineering:X_train shape after interactions: (40000, 1501)
+INFO:src.feature_engineering:X_test shape after interactions: (10000, 1501)
+INFO:src.feature_engineering:X_train shape after polynomial: (40000, 10)   
+INFO:src.feature_engineering:X_test shape after polynomial: (10000, 10)    
+INFO:src.feature_engineering:Engineered features shape: 50
+Training ridge model...
+Training rf model...
+Training gb model...
+Training nn model...
+2024-09-01 19:02:04.014997: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Evaluating ridge model...
+Evaluating rf model...
+Evaluating gb model...
+Evaluating nn model...
+
+Processing with robust scaler:
+X_train_scaled shape: (40000, 1495)
+X_test_scaled shape: (10000, 1495)
+y_train shape: (40000,)
+Number of feature names: 1495
+INFO:src.feature_engineering:Using features: ['city_Aubrey' 'city_Celina' 'city_Dallas' ... 'year_closed'
+ 'median_price_of_nearby_homes' 'final_sentiment_score']
+INFO:src.feature_engineering:X_train shape: (40000, 1495)
+INFO:src.feature_engineering:X_test shape: (10000, 1495)
+INFO:src.feature_engineering:X_train shape after interactions: (40000, 1501)
+INFO:src.feature_engineering:X_test shape after interactions: (10000, 1501)
+INFO:src.feature_engineering:X_train shape after polynomial: (40000, 10)   
+INFO:src.feature_engineering:X_test shape after polynomial: (10000, 10)    
+INFO:src.feature_engineering:Engineered features shape: 50
+Training ridge model...
+Training rf model...
+Training gb model...
+Training nn model...
+Evaluating ridge model...
+Evaluating rf model...
+Evaluating gb model...
+Evaluating nn model...
+
+Processing with minmax scaler:
+X_train_scaled shape: (40000, 1495)
+X_test_scaled shape: (10000, 1495)
+y_train shape: (40000,)
+Number of feature names: 1495
+INFO:src.feature_engineering:Using features: ['city_Aubrey' 'city_Celina' 'city_Dallas' ... 'year_closed'
+ 'median_price_of_nearby_homes' 'final_sentiment_score']
+INFO:src.feature_engineering:X_train shape: (40000, 1495)
+INFO:src.feature_engineering:X_test shape: (10000, 1495)
+INFO:src.feature_engineering:X_train shape after interactions: (40000, 1501)
+INFO:src.feature_engineering:X_test shape after interactions: (10000, 1501)
+INFO:src.feature_engineering:X_train shape after polynomial: (40000, 10)
+INFO:src.feature_engineering:X_test shape after polynomial: (10000, 10)
+INFO:src.feature_engineering:Engineered features shape: 50
+Training ridge model...
+Training rf model...
+Training gb model...
+Training nn model...
+Evaluating ridge model...
+Evaluating rf model...
+Evaluating gb model...
+Evaluating nn model...
+DEBUG:__main__:Starting best model selection
+DEBUG:__main__:Best model selected: KerasRegressor with robust scaling
+
+Best overall model: KerasRegressor with robust scaling
+DEBUG:__main__:Starting feature re-engineering for best model
+INFO:src.feature_engineering:Using features: ['city_Aubrey' 'city_Celina' 'city_Dallas' ... 'year_closed'
+ 'median_price_of_nearby_homes' 'final_sentiment_score']
+INFO:src.feature_engineering:X_train shape: None
+INFO:src.feature_engineering:X_test shape: (10000, 1495)
+INFO:src.feature_engineering:X_train shape after interactions: None
+INFO:src.feature_engineering:X_test shape after interactions: (10000, 1501)
+INFO:src.feature_engineering:X_train shape after polynomial: None
+INFO:src.feature_engineering:X_test shape after polynomial: (10000, 10)
+INFO:src.feature_engineering:Engineered features shape: 50
+DEBUG:__main__:Feature re-engineering completed
+Best model type: <class 'scikeras.wrappers.KerasRegressor'>
+Best model attributes: ['X_dtype_', 'X_shape_', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__name__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__setstate__', '__sizeof__', '__sklearn_clone__', '__str__', '__subclasshook__', '__weakref__', '_build_keras_model', '_build_request_for_signature', '_check_feature_names', '_check_model_compatibility', '_check_model_param', '_check_n_features', '_compile_kwargs', '_doc_link_module', '_doc_link_template', '_doc_link_url_param_generator', '_ensure_compiled_model', '_estimator_type', '_fit', '_fit_callbacks', '_fit_keras_model', '_fit_kwargs', '_get_compile_kwargs', '_get_default_requests', '_get_doc_link', '_get_metadata', '_get_metadata_request', '_get_param_names', '_get_tags', '_initialize', '_initialize_callbacks', '_more_tags', '_predict_callbacks', '_predict_kwargs', '_predict_raw', '_random_state', '_repr_html_', '_repr_html_inner', '_repr_mimebundle_', '_routing_prefixes', '_tags', '_type_of_target', '_user_params', '_validate_data', '_validate_params', '_validate_sample_weight', '_wrapper_params', 'batch_size', 'build_fn', 'callbacks', 'current_epoch', 'epochs', 'feature_encoder', 'feature_encoder_', 'fit', 'get_metadata_routing', 'get_params', 'history_', 'initialize', 'initialized_', 'input_dim', 'loss', 'metrics', 'model', 'model_', 'n_features_in_', 'n_outputs_', 'n_outputs_expected_', 'optimizer', 'partial_fit', 'predict', 'random_state', 'run_eagerly', 'score', 'scorer', 'set_fit_request', 'set_params', 'set_partial_fit_request', 'set_score_request', 'shuffle', 'target_encoder', 'target_encoder_', 'target_type_', 'validation_batch_size', 'validation_split', 'verbose', 'warm_start', 'y_dtype_', 'y_ndim_']
+Saving KerasRegressor model to models/best_model_robust_KerasRegressor_50000
+KerasRegressor model saved to models/best_model_robust_KerasRegressor_50000
+DEBUG:__main__:Starting plot_predictions
+DEBUG:__main__:plot_predictions completed
+Total execution time: 8940.72 seconds
+Peak memory usage: 3577.44 MB
+(.venv) (base) 
