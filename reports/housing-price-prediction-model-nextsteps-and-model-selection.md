@@ -36,64 +36,86 @@
 
 Based on the results from our fourth 50K run, where the KerasRegressor model with robust scaling showed the best performance, we will focus our hyperparameter tuning efforts as follows:
 
-### 4.1 KerasRegressor (Neural Network)
+### Gradient Boosting
+# Hyperparameter Tuning for Gradient Boosting Regressor (GBR) with MinMax Scaling
 
-Primary focus due to best performance in previous run.
-Addressing observed overfitting while maintaining model performance.
+## Objective
+To fine-tune the Gradient Boosting Regressor (GBR) model using MinMax scaling to maximize its performance. The focus is on adjusting key hyperparameters to optimize model accuracy, reduce overfitting, and improve generalization.
 
+## Hyperparameters to Tune
 
-- **Architecture:**
-  - Number of layers: [2, 3]
-  - Neurons per layer: [32, 64, 128]
-  - Activation functions: ['relu', 'elu']
+### 1. Learning Rate (`learning_rate`)
+- **Description:** Controls the step size at each iteration while moving toward a minimum of the loss function. Lower values make the learning process slower but can lead to better accuracy.
+- **Suggested Range:** `0.01` to `0.1`
+- **Tuning Strategy:**
+  - Start with a small learning rate (e.g., 0.01) and increase it gradually.
+  - Use grid search or randomized search to find the optimal value.
 
-- **Optimization:**
-  - Learning rate: [0.01, 0.001, 0.0001]
-  - Optimizer: ['adam']
-  - Batch size: [32, 64, 128]
-  - Epochs: Use early stopping with patience of 10 epochs
+### 2. Number of Estimators (`n_estimators`)
+- **Description:** The number of boosting rounds, or trees, to fit. More estimators can improve performance but also increase the risk of overfitting.
+- **Suggested Range:** `100` to `500`
+- **Tuning Strategy:**
+  - Perform a grid search with a range of estimators.
+  - Monitor performance to find the point where additional trees no longer significantly improve accuracy.
 
-- **Regularization:**
-  - Dropout rate: [0.1, 0.2, 0.3, 0.4, 0.5]
-  - L2 regularization: [0.01, 0.001, 0.0001]
+### 3. Maximum Depth of Trees (`max_depth`)
+- **Description:** Determines the maximum depth of the individual trees. Deeper trees can model more complex patterns but are also more likely to overfit.
+- **Suggested Range:** `3` to `8`
+- **Tuning Strategy:**
+  - Start with shallow trees (e.g., depth of 3) and gradually increase the depth.
+  - Use cross-validation to balance model complexity and generalization.
 
-### 4.2 Gradient Boosting
+### 4. Minimum Samples per Leaf (`min_samples_leaf`)
+- **Description:** The minimum number of samples required to be at a leaf node. This hyperparameter controls the minimum number of samples allowed in a leaf, helping to prevent overfitting.
+- **Suggested Range:** `1` to `5`
+- **Tuning Strategy:**
+  - Start with the default value of 1 and increase it to see if it reduces overfitting.
+  - Use grid or randomized search to find the optimal balance.
 
-Second priority for tuning due to strong performance.
-Focus on controlling tree complexity to reduce overfitting.
+### 5. Subsample (`subsample`)
+- **Description:** The fraction of samples used to fit individual base learners. Setting this to a value less than 1.0 introduces randomness into the training process, which can prevent overfitting.
+- **Suggested Range:** `0.5` to `1.0`
+- **Tuning Strategy:**
+  - Test different values within this range to find the optimal subsample rate.
+  - Lower values can help in reducing overfitting.
 
-- **Tree-specific:**
-  - n_estimators: [100, 200, 500]
-  - max_depth: [3, 4, 5, 6]
-  - min_samples_split: [5, 10, 20]
-  - min_samples_leaf: [2, 4, 8]
+### 6. Maximum Features (`max_features`)
+- **Description:** The number of features to consider when looking for the best split. Limiting this can prevent overfitting and reduce the variance of the model.
+- **Suggested Range:** `0.3` to `1.0`
+- **Tuning Strategy:**
+  - Experiment with different fractions of features (e.g., 0.3, 0.5, 0.7, 1.0).
+  - Determine the fraction that results in the best performance without overfitting.
 
-- **Boosting parameters:**
-  - learning_rate: [0.01, 0.05, 0.1]
-  - subsample: [0.6, 0.8]
-  - colsample_bytree: [0.6, 0.8]
+## Tuning Process
 
-### 4.3 Random Forest
+### 1. Initial Grid Search
+- **Objective:** To get a broad sense of the model’s performance across different hyperparameter combinations.
+- **Hyperparameters to Include:**
+  - `learning_rate`: `[0.01, 0.05, 0.1]`
+  - `n_estimators`: `[100, 200, 300]`
+  - `max_depth`: `[3, 5, 7]`
+  - `min_samples_leaf`: `[1, 3, 5]`
+  - `subsample`: `[0.7, 0.85, 1.0]`
+  - `max_features`: `[0.5, 0.75, 1.0]`
+- **Tools:** Use `GridSearchCV` with cross-validation to evaluate performance.
 
-Include for comparison and potential ensemble methods.
-Significant focus on reducing overfitting through tree complexity control.
+### 2. Fine-Tuning with Randomized Search
+- **Objective:** After identifying promising ranges from the initial grid search, use randomized search to explore a wider hyperparameter space more efficiently.
+- **Hyperparameters to Include:**
+  - `learning_rate`: `[0.01, 0.05, 0.1]` (narrow down based on results)
+  - `n_estimators`: `[150, 200, 250, 300, 350]`
+  - `max_depth`: `[3, 4, 5, 6, 7]`
+  - `min_samples_leaf`: `[1, 2, 3, 4, 5]`
+  - `subsample`: `[0.5, 0.6, 0.7, 0.8, 0.9, 1.0]`
+  - `max_features`: `[0.3, 0.5, 0.7, 0.9, 1.0]`
+- **Tools:** Use `RandomizedSearchCV` to efficiently search through combinations.
 
-- **Tree-specific:**
-  - n_estimators: [100, 200]
-  - max_depth: [5, 10, 15, None]
-  - min_samples_split: [5, 10, 20]
-  - min_samples_leaf: [2, 4, 8]
+### 3. Final Model Selection
+- **Objective:** Choose the best hyperparameter combination from the searches above.
+- **Evaluation:**
+  - Validate the selected model on a separate test set to ensure it generalizes well.
+  - Review performance metrics (e.g., RMSE, MSE, R²) to confirm the model’s effectiveness.
 
-- **Randomness:**
-  - max_features: ['sqrt', 'log2']
-
-### 4.4 Ridge Regression
-
-Maintain as baseline model with minimal tuning.
-Explore slightly more complex models to address potential underfitting.
-
-
-- alpha: [0.1, 0.5, 1.0, 5.0, 10.0]
 
 ### Implementation Strategy:
 
@@ -101,13 +123,6 @@ Explore slightly more complex models to address potential underfitting.
 2. Perform 5-fold cross-validation for each model.
 3. Use 50 iterations for RandomizedSearchCV to balance exploration and computation time.
 4. Use negative mean squared error (-MSE) as the scoring metric for consistency across models.
-5. Retain the best-performing configuration for each model type.
-6. For KerasRegressor, implement early stopping in model compilation:
-   ```python
-   from tensorflow.keras.callbacks import EarlyStopping
-   early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
-   ```
-7. For tree-based models, use out-of-bag error estimates where applicable.
 
 ### Post-Tuning Analysis:
 
@@ -125,76 +140,54 @@ Explore slightly more complex models to address potential underfitting.
 
 ## Model Selection ✅ Completed
 
-Based on our most recent 50K run (9/1/24 - 10PM)
+# Decision to Simplify Model Pipeline - Update 9/3/24 
 
-a) Best Overall Model: KerasRegressor (Neural Network) with robust scaling
-   - Lowest RMSE: 70487.43
-   - Highest R2 Score: 0.8383 (robust scaling)
+## Reasons for Removing the Neural Network (NN) Model
 
-b) Model Ranking (based on RMSE):
-   1. Gradient Boosting (GB): 70525.85 (MinMax scaling)
-   2. Ridge Regression: 70556.08 (Robust scaling)
-   3. Neural Network (NN): 70487.43 (Robust scaling)
-   4. Random Forest (RF): 71536.83 (MinMax scaling)
+1. **Resource Intensive:**
+   - The NN model requires significant computational resources, leading to prolonged training times and higher demands on system memory and processing power.
 
-c) Scaling Impact:
-   - MinMax scaling generally performed well across models
-   - Robust scaling worked best for the Neural Network
-   - Standard scaling showed consistent performance across models
+2. **Instability in Performance:**
+   - The NN model has shown inconsistent learning curves with large fluctuations in error rates, indicating potential issues with overfitting or poor generalization.
+   - These instabilities make the NN model less reliable and harder to tune effectively.
 
-2. Detailed Analysis:
+3. **Minimal Performance Gain:**
+   - Despite the high resource investment, the NN model does not significantly outperform other models in terms of key performance metrics like RMSE, MSE, and R².
+   - The performance gain does not justify the additional complexity and resource requirements.
 
-a) Ridge Regression:
-   - Consistent performance across all scalers
-   - RMSE range: 70556.08 - 70576.73
-   - R2 range: 0.8378 - 0.8380
-   - Learning curve shows slight overfitting
+## Reasons for Removing Ridge Regression and Random Forest Models
 
-b) Random Forest:
-   - Worst performer among the models
-   - RMSE range: 71536.83 - 72994.85
-   - R2 range: 0.8266 - 0.8334
-   - Learning curve shows significant overfitting
+1. **Suboptimal Performance:**
+   - Both Ridge Regression and Random Forest models, while stable, do not outperform the Gradient Boosting model.
+   - The difference in performance across key metrics (RMSE, MAE, MSE, R²) indicates that these models are less effective for the current task.
 
-c) Gradient Boosting:
-   - Best performer among traditional models
-   - RMSE range: 70525.85 - 70547.01
-   - R2 range: 0.8380 - 0.8381
-   - Learning curve shows some overfitting, but less severe than Random Forest
+2. **Focus on the Best Model:**
+   - By eliminating these models, we can concentrate our efforts on tuning and optimizing the best-performing model, which is Gradient Boosting.
+   - This approach simplifies the pipeline and ensures that resources are focused where they are most impactful.
 
-d) Neural Network (KerasRegressor):
-   - Best overall performance with robust scaling
-   - Inconsistent performance across scalers
-   - RMSE range: 70487.43 - 70789.09
-   - R2 range: 0.8369 - 0.8383
-   - Learning curve shows potential for improvement with more data or longer training
+## Reasons for Removing Other Scalers
 
-3. Observations and Recommendations:
+1. **Inconsistent Results:**
+   - The other scalers (e.g., RobustScaler, StandardScaler) have shown inconsistent performance, particularly in the Neural Network model where the RobustScaler significantly underperformed.
+   - This inconsistency adds unnecessary variability to the results.
 
-a) Model Selection:
-   - The Neural Network (KerasRegressor) with robust scaling shows the best performance and should be our primary focus for further optimization.
-   - Gradient Boosting is a strong alternative and should be considered for ensemble methods or as a fallback option.
+2. **MinMax Scaler Superiority:**
+   - The MinMax scaler consistently produced better or comparable results across different models.
+   - Standardizing on MinMax scaling reduces complexity in the preprocessing pipeline and ensures a more consistent input range for the model.
 
-b) Scaling:
-   - Different models perform best with different scalers. We should maintain separate pipelines for each model-scaler combination in future iterations.
+## Conclusion
 
-c) Overfitting:
-   - Random Forest and Gradient Boosting show signs of overfitting. Consider implementing regularization techniques or reducing model complexity.
-   - The Neural Network's learning curve suggests it might benefit from more data or longer training.
+By removing the three models (NN, Ridge, Random Forest) and other scalers, the machine learning pipeline is simplified and focused on the Gradient Boosting model with MinMax scaling. This decision is based on:
 
-d) Feature Engineering:
-   - The current feature set (1495 initial features, 50 after engineering) seems effective but may be causing overfitting in tree-based models.
-   - Consider feature selection techniques to reduce dimensionality.
+- The superior and consistent performance of the GB model.
+- The resource efficiency gained by reducing the number of models and scalers.
+- The elimination of unnecessary complexity, leading to a more manageable and effective pipeline.
 
-e) Cross-Validation:
-   - Our current 5-fold cross-validation approach is working well. Consider experimenting with different numbers of folds to ensure stability of results.
+This streamlined approach allows for more targeted hyperparameter tuning and better use of computational resources, ultimately improving the overall performance and reliability of the model.
 
-f) Hyperparameter Tuning:
-   - Focus on tuning the Neural Network and Gradient Boosting models, as they show the most promise.
-   - For Neural Network, prioritize regularization techniques to combat potential overfitting.
-   - For Gradient Boosting, focus on tree complexity parameters to reduce overfitting while maintaining performance.
 
-### Models to Keep ✅ Completed
+### Model Evaluation 9/1/24
+### Models to Keep 
 This was based on the first couple runs. The information above is based on last run. Keras won. 
 1. **Ridge Regression**
    - Represents linear models with regularization.
@@ -217,7 +210,7 @@ This was based on the first couple runs. The information above is based on last 
    - Keep for potential improvements with architecture adjustments and hyperparameter tuning.
    - Fix the tensorflow error (guide to fix in tensorflowerror markdown file) ✅ Completed
 
-### Models to Remove ✅ Completed
+### Models to Remove 
 
 1. **Support Vector Regression (SVR)**
    - Consistently underperformed across both 50K runs.
@@ -234,25 +227,11 @@ This was based on the first couple runs. The information above is based on last 
 
 ## Performance Summary
 
-- Gradient Boosting with MinMax scaling performed best in the latest run.
-- Random Forest showed strong and consistent performance across runs.
-- Ridge Regression performed well among linear models.
-- Neural Network performance varied significantly between runs, requiring further investigation.
-- MinMax and Robust scaling generally provided better results across models.
+- GB Model: Across both sets, the GB model consistently showed good generalization and stability, making it the most reliable choice for your final pipeline.
+- NN Model: The NN model displayed instability in both runs, with varying performance that was heavily influenced by the choice of scaler, suggesting it might not be the best   model to prioritize.
+- Scalers: The MinMax scaler consistently outperformed others in both runs, making it the preferred choice for all models.
 
-## Next Run Configuration
 
-- Dataset size: 75,000 records (incrementally increasing from 50,000)
-- Models: Ridge, Random Forest, Gradient Boosting, Neural Network
-- Implement basic hyperparameter tuning for Ridge, RF, and GB
-- Experiment with different Neural Network architectures to improve performance
-
-## Resource Considerations
-
-- Previous run (50,000 records) AUG 29th 8PM:
-  - Runtime: ~18.5 minutes
-  - Peak memory usage: 3143.38 MB
-  - Consider cloud computing options if resource usage increases significantly with 75,000 records
 
 ## Additional Information
 
@@ -260,12 +239,3 @@ This was based on the first couple runs. The information above is based on last 
 - Consider cloud computing options for full dataset if local resources are insufficient.
 - Balance model performance with interpretability requirements for the interactive user interface.
 - Implement cross-validation for more robust model evaluation.
-
-## Next Steps
-
-1. Implement hyperparameter tuning for Gradient Boosting and Random Forest models.
-2. Investigate the drop in Neural Network performance and experiment with different architectures. 
-3. Analyze feature importance from the best-performing models (Gradient Boosting and Random Forest).
-4. Implement the additional features listed in the Immediate Actions section. 
-5. Prepare for the 75,000 record run with the optimized models and configurations.
-6. Continue monitoring performance and resource usage to ensure scalability.
