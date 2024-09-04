@@ -36,113 +36,14 @@
 
 Based on the results from our fourth 50K run, where the KerasRegressor model with robust scaling showed the best performance, we will focus our hyperparameter tuning efforts as follows:
 
-### Gradient Boosting
+### Gradient Boosting ✅ Completed
 # Hyperparameter Tuning for Gradient Boosting Regressor (GBR) with MinMax Scaling
-
-## Objective
-To fine-tune the Gradient Boosting Regressor (GBR) model using MinMax scaling to maximize its performance. The focus is on adjusting key hyperparameters to optimize model accuracy, reduce overfitting, and improve generalization.
-
-## Hyperparameters to Tune
-
-### 1. Learning Rate (`learning_rate`)
-- **Description:** Controls the step size at each iteration while moving toward a minimum of the loss function. Lower values make the learning process slower but can lead to better accuracy.
-- **Suggested Range:** `0.01` to `0.1`
-- **Tuning Strategy:**
-  - Start with a small learning rate (e.g., 0.01) and increase it gradually.
-  - Use grid search or randomized search to find the optimal value.
-
-### 2. Number of Estimators (`n_estimators`)
-- **Description:** The number of boosting rounds, or trees, to fit. More estimators can improve performance but also increase the risk of overfitting.
-- **Suggested Range:** `100` to `500`
-- **Tuning Strategy:**
-  - Perform a grid search with a range of estimators.
-  - Monitor performance to find the point where additional trees no longer significantly improve accuracy.
-
-### 3. Maximum Depth of Trees (`max_depth`)
-- **Description:** Determines the maximum depth of the individual trees. Deeper trees can model more complex patterns but are also more likely to overfit.
-- **Suggested Range:** `3` to `8`
-- **Tuning Strategy:**
-  - Start with shallow trees (e.g., depth of 3) and gradually increase the depth.
-  - Use cross-validation to balance model complexity and generalization.
-
-### 4. Minimum Samples per Leaf (`min_samples_leaf`)
-- **Description:** The minimum number of samples required to be at a leaf node. This hyperparameter controls the minimum number of samples allowed in a leaf, helping to prevent overfitting.
-- **Suggested Range:** `1` to `5`
-- **Tuning Strategy:**
-  - Start with the default value of 1 and increase it to see if it reduces overfitting.
-  - Use grid or randomized search to find the optimal balance.
-
-### 5. Subsample (`subsample`)
-- **Description:** The fraction of samples used to fit individual base learners. Setting this to a value less than 1.0 introduces randomness into the training process, which can prevent overfitting.
-- **Suggested Range:** `0.5` to `1.0`
-- **Tuning Strategy:**
-  - Test different values within this range to find the optimal subsample rate.
-  - Lower values can help in reducing overfitting.
-
-### 6. Maximum Features (`max_features`)
-- **Description:** The number of features to consider when looking for the best split. Limiting this can prevent overfitting and reduce the variance of the model.
-- **Suggested Range:** `0.3` to `1.0`
-- **Tuning Strategy:**
-  - Experiment with different fractions of features (e.g., 0.3, 0.5, 0.7, 1.0).
-  - Determine the fraction that results in the best performance without overfitting.
-
-## Tuning Process
-
-### 1. Initial Grid Search
-- **Objective:** To get a broad sense of the model’s performance across different hyperparameter combinations.
-- **Hyperparameters to Include:**
-  - `learning_rate`: `[0.01, 0.05, 0.1]`
-  - `n_estimators`: `[100, 200, 300]`
-  - `max_depth`: `[3, 5, 7]`
-  - `min_samples_leaf`: `[1, 3, 5]`
-  - `subsample`: `[0.7, 0.85, 1.0]`
-  - `max_features`: `[0.5, 0.75, 1.0]`
-- **Tools:** Use `GridSearchCV` with cross-validation to evaluate performance.
-
-### 2. Fine-Tuning with Randomized Search
-- **Objective:** After identifying promising ranges from the initial grid search, use randomized search to explore a wider hyperparameter space more efficiently.
-- **Hyperparameters to Include:**
-  - `learning_rate`: `[0.01, 0.05, 0.1]` (narrow down based on results)
-  - `n_estimators`: `[150, 200, 250, 300, 350]`
-  - `max_depth`: `[3, 4, 5, 6, 7]`
-  - `min_samples_leaf`: `[1, 2, 3, 4, 5]`
-  - `subsample`: `[0.5, 0.6, 0.7, 0.8, 0.9, 1.0]`
-  - `max_features`: `[0.3, 0.5, 0.7, 0.9, 1.0]`
-- **Tools:** Use `RandomizedSearchCV` to efficiently search through combinations.
-
-### 3. Final Model Selection
-- **Objective:** Choose the best hyperparameter combination from the searches above.
-- **Evaluation:**
-  - Validate the selected model on a separate test set to ensure it generalizes well.
-  - Review performance metrics (e.g., RMSE, MSE, R²) to confirm the model’s effectiveness.
-
-
-### Implementation Strategy:
-
-1. Use RandomizedSearchCV for efficient exploration of hyperparameter space.
-2. Perform 5-fold cross-validation for each model.
-3. Use 50 iterations for RandomizedSearchCV to balance exploration and computation time.
-4. Use negative mean squared error (-MSE) as the scoring metric for consistency across models.
-
-### Post-Tuning Analysis:
-
-1. Compare tuned model performances against the baseline and each other.
-2. Analyze learning curves to assess overfitting/underfitting and compare to previous results
-3. Evaluate feature importance for tree-based models.
-4. Consider ensemble methods combining top-performing models.
-5. Analyze the selected hyperparameters to understand which had the most impact on reducing overfitting.
-6. Perform a final evaluation on a held-out test set to confirm generalization capability.
-
-### Monitoring during tuning:
-1. Track both training and validation scores throughout the tuning process.
-2. For each model, plot learning curves of the top 5 parameter combinations to visually inspect for overfitting/underfitting.
-3. Monitor the difference between training and validation scores as a key indicator of overfitting.
 
 ## Model Selection ✅ Completed
 
-# Decision to Simplify Model Pipeline - Update 9/3/24 
+# Decision to Simplify Model Pipeline - Update 9/3/24  ✅ Completed
 
-## Reasons for Removing the Neural Network (NN) Model
+## Reasons for Removing the Neural Network (NN) Model ✅ Completed
 
 1. **Resource Intensive:**
    - The NN model requires significant computational resources, leading to prolonged training times and higher demands on system memory and processing power.
@@ -155,7 +56,7 @@ To fine-tune the Gradient Boosting Regressor (GBR) model using MinMax scaling to
    - Despite the high resource investment, the NN model does not significantly outperform other models in terms of key performance metrics like RMSE, MSE, and R².
    - The performance gain does not justify the additional complexity and resource requirements.
 
-## Reasons for Removing Ridge Regression and Random Forest Models
+## Reasons for Removing Ridge Regression and Random Forest Models ✅ Completed
 
 1. **Suboptimal Performance:**
    - Both Ridge Regression and Random Forest models, while stable, do not outperform the Gradient Boosting model.
@@ -165,7 +66,7 @@ To fine-tune the Gradient Boosting Regressor (GBR) model using MinMax scaling to
    - By eliminating these models, we can concentrate our efforts on tuning and optimizing the best-performing model, which is Gradient Boosting.
    - This approach simplifies the pipeline and ensures that resources are focused where they are most impactful.
 
-## Reasons for Removing Other Scalers
+## Reasons for Removing Other Scalers ✅ Completed
 
 1. **Inconsistent Results:**
    - The other scalers (e.g., RobustScaler, StandardScaler) have shown inconsistent performance, particularly in the Neural Network model where the RobustScaler significantly underperformed.
@@ -186,7 +87,7 @@ By removing the three models (NN, Ridge, Random Forest) and other scalers, the m
 This streamlined approach allows for more targeted hyperparameter tuning and better use of computational resources, ultimately improving the overall performance and reliability of the model.
 
 
-### Model Evaluation 9/1/24
+### Model Evaluation 9/1/24 ✅ Completed
 ### Models to Keep 
 This was based on the first couple runs. The information above is based on last run. Keras won. 
 1. **Ridge Regression**
@@ -210,7 +111,7 @@ This was based on the first couple runs. The information above is based on last 
    - Keep for potential improvements with architecture adjustments and hyperparameter tuning.
    - Fix the tensorflow error (guide to fix in tensorflowerror markdown file) ✅ Completed
 
-### Models to Remove 
+### Models to Remove ✅ Completed
 
 1. **Support Vector Regression (SVR)**
    - Consistently underperformed across both 50K runs.
