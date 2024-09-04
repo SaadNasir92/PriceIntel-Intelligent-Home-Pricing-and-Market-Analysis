@@ -32,9 +32,7 @@
       - Add a parameter for number of CV folds (e.g., `n_cv_folds = 5`).
       - Pass CV parameter to model training and evaluation functions.
 
-## 4. Hyperparameter Tuning
-
-Based on the results from our fourth 50K run, where the KerasRegressor model with robust scaling showed the best performance, we will focus our hyperparameter tuning efforts as follows:
+## 4. Hyperparameter Tuning ✅ Completed
 
 ### Gradient Boosting ✅ Completed
 # Hyperparameter Tuning for Gradient Boosting Regressor (GBR) with MinMax Scaling
@@ -75,17 +73,6 @@ Based on the results from our fourth 50K run, where the KerasRegressor model wit
 2. **MinMax Scaler Superiority:**
    - The MinMax scaler consistently produced better or comparable results across different models.
    - Standardizing on MinMax scaling reduces complexity in the preprocessing pipeline and ensures a more consistent input range for the model.
-
-## Conclusion
-
-By removing the three models (NN, Ridge, Random Forest) and other scalers, the machine learning pipeline is simplified and focused on the Gradient Boosting model with MinMax scaling. This decision is based on:
-
-- The superior and consistent performance of the GB model.
-- The resource efficiency gained by reducing the number of models and scalers.
-- The elimination of unnecessary complexity, leading to a more manageable and effective pipeline.
-
-This streamlined approach allows for more targeted hyperparameter tuning and better use of computational resources, ultimately improving the overall performance and reliability of the model.
-
 
 ### Model Evaluation 9/1/24 ✅ Completed
 ### Models to Keep 
