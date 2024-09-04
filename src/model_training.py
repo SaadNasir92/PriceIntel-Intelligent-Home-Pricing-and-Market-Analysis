@@ -10,45 +10,23 @@ class ModelTrainer:
         pass
 
     def train_gbr_with_tuning(self, X_train, y_train):
-        # Initial Grid Search
-        param_grid = {
-            "learning_rate": [0.01, 0.05, 0.1],
+        # Initial Randomized Search
+        param_distributions = {
+            "learning_rate": [0.01, 0.1],
             "n_estimators": [100, 200, 300],
             "max_depth": [3, 5, 7],
-            "min_samples_leaf": [1, 3, 5],
-            "subsample": [0.7, 0.85, 1.0],
-            "max_features": [0.5, 0.75, 1.0],
-        }
-
-        grid_search = GridSearchCV(
-            GradientBoostingRegressor(random_state=42),
-            param_grid,
-            cv=5,
-            scoring="neg_mean_squared_error",
-            n_jobs=12,
-        )
-
-        logger.info("Starting Grid Search for GBR...")
-        grid_search.fit(X_train, y_train)
-        logger.info(f"Best parameters from Grid Search: {grid_search.best_params_}")
-
-        # Fine-tuning with Randomized Search
-        param_distributions = {
-            "learning_rate": [0.01, 0.05, 0.1],
-            "n_estimators": [150, 200, 250, 300, 350],
-            "max_depth": [3, 4, 5, 6, 7],
-            "min_samples_leaf": [1, 2, 3, 4, 5],
-            "subsample": [0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-            "max_features": [0.3, 0.5, 0.7, 0.9, 1.0],
+            "min_samples_leaf": [1, 3],
+            "subsample": [0.8, 1.0],
+            "max_features": [0.5, 0.7, 1.0],
         }
 
         random_search = RandomizedSearchCV(
             GradientBoostingRegressor(random_state=42),
             param_distributions,
-            n_iter=50,
-            cv=5,
+            n_iter=20,
+            cv=3,
             scoring="neg_mean_squared_error",
-            n_jobs=12,
+            n_jobs=16,
             random_state=42,
         )
 
@@ -58,7 +36,85 @@ class ModelTrainer:
             f"Best parameters from Randomized Search: {random_search.best_params_}"
         )
 
-        return random_search.best_estimator_, random_search.cv_results_
+        # Fine-tuning with Grid Search around best parameters
+        best_params = random_search.best_params_
+        param_grid = {}
+        for k, v in best_params.items():
+            if k == "subsample":
+                param_grid[k] = [
+                    max(0.1, min(v * 0.9, 1.0)),
+                    min(v, 1.0),
+                    min(v * 1.1, 1.0),
+                ]
+            elif isinstance(v, int):
+                param_grid[k] = [max(1, v - 1), v, v + 1]
+            else:
+                param_grid[k] = [v * 0.9, v, v * 1.1]
+
+        grid_search = GridSearchCV(
+            GradientBoostingRegressor(random_state=42),
+            param_grid,
+            cv=3,
+            scoring="neg_mean_squared_error",
+            n_jobs=16,
+        )
+
+        logger.info("Starting Grid Search for GBR...")
+        grid_search.fit(X_train, y_train)
+        logger.info(f"Best parameters from Grid Search: {grid_search.best_params_}")
+
+        return grid_search.best_estimator_, grid_search.cv_results_
+
+    # def train_gbr_with_tuning(self, X_train, y_train):
+    #     # Initial Grid Search
+    #     param_grid = {
+    #         "learning_rate": [0.01, 0.05, 0.1],
+    #         "n_estimators": [100, 200, 300],
+    #         "max_depth": [3, 5, 7],
+    #         "min_samples_leaf": [1, 3, 5],
+    #         "subsample": [0.7, 0.85, 1.0],
+    #         "max_features": [0.5, 0.75, 1.0],
+    #     }
+
+    #     grid_search = GridSearchCV(
+    #         GradientBoostingRegressor(random_state=42),
+    #         param_grid,
+    #         cv=3,
+    #         scoring="neg_mean_squared_error",
+    #         n_jobs=18,
+    #     )
+
+    #     logger.info("Starting Grid Search for GBR...")
+    #     grid_search.fit(X_train, y_train)
+    #     logger.info(f"Best parameters from Grid Search: {grid_search.best_params_}")
+
+    #     # Fine-tuning with Randomized Search
+    #     param_distributions = {
+    #         "learning_rate": [0.01, 0.05, 0.1],
+    #         "n_estimators": [150, 200, 250, 300, 350],
+    #         "max_depth": [3, 4, 5, 6, 7],
+    #         "min_samples_leaf": [1, 2, 3, 4, 5],
+    #         "subsample": [0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+    #         "max_features": [0.3, 0.5, 0.7, 0.9, 1.0],
+    #     }
+
+    #     random_search = RandomizedSearchCV(
+    #         GradientBoostingRegressor(random_state=42),
+    #         param_distributions,
+    #         n_iter=50,
+    #         cv=3,
+    #         scoring="neg_mean_squared_error",
+    #         n_jobs=18,
+    #         random_state=42,
+    #     )
+
+    #     logger.info("Starting Randomized Search for GBR...")
+    #     random_search.fit(X_train, y_train)
+    #     logger.info(
+    #         f"Best parameters from Randomized Search: {random_search.best_params_}"
+    #     )
+
+    #     return random_search.best_estimator_, random_search.cv_results_
 
     ###---------------------------------NOT USING METHODS BELOW ANYMORE SINCE WE ARE FOCUSED ON ONE SCALER AND ONE MODEL---------------------------------------------###
 

@@ -31,7 +31,7 @@ def main():
     use_polynomial = True
     polynomial_degree = 2
     k_best = 50
-
+    print("Making feature engineer class")
     feature_engineer = FeatureEngineer(
         important_features=important_features,
         use_polynomial=use_polynomial,
@@ -45,10 +45,11 @@ def main():
     # scaler_types = ["standard", "robust", "minmax"]
     # results = {}
 
-    sample_size = 100  # Dataset size to be changed here
+    sample_size = 150  # Dataset size to be changed here
     feature_names = None
 
     # Preprocess data with MinMax scaler
+    print("preprocessing data")
     X_train_scaled, X_test_scaled, y_train, y_test, current_feature_names = (
         preprocessor.preprocess_data(
             "data/processed/processed_synthetic_cleaned.csv",
@@ -61,6 +62,7 @@ def main():
     feature_names = current_feature_names
 
     # Engineer features
+    print("engineering features. custom print statement")
     X_train_engineered, X_test_engineered, selected_features = (
         feature_engineer.engineer_features(
             X_train_scaled, X_test_scaled, y_train, feature_names
