@@ -12,12 +12,12 @@ class ModelTrainer:
     def train_gbr_with_tuning(self, X_train, y_train):
         # Initial Randomized Search
         param_distributions = {
-            "learning_rate": [0.01, 0.1],
-            "n_estimators": [100, 200, 300],
-            "max_depth": [3, 5, 7],
-            "min_samples_leaf": [1, 3],
-            "subsample": [0.8, 1.0],
-            "max_features": [0.5, 0.7, 1.0],
+            "learning_rate": [0.08, 0.09, 0.10, 0.11],
+            "n_estimators": [95, 100, 105],
+            "max_depth": [2, 3, 4],
+            "min_samples_leaf": [2, 3, 4],
+            "subsample": [0.9, 0.95, 1.0],
+            "max_features": [0.9, 0.95, 1.0],
         }
 
         random_search = RandomizedSearchCV(
