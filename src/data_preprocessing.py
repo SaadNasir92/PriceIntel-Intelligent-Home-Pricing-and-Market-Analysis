@@ -27,6 +27,26 @@ class DataPreprocessor:
             return df.sample(n=sample_size, random_state=42)
         return df
 
+    def load_and_sample_data(self, filepath, sample_size):
+        # Read the entire dataset
+        df = pd.read_csv(filepath)
+
+        # Ensure 'Closing_Date' is in datetime format
+        df["closing_date"] = pd.to_datetime(df["closing_date"])
+
+        # Sort by closing date
+        df = df.sort_values("closing_date")
+
+        # Calculate the step size for sampling
+        total_rows = len(df)
+        step = max(1, total_rows // sample_size)
+
+        # Sample the data
+        sampled_indices = range(0, total_rows, step)
+        df_sampled = df.iloc[sampled_indices].head(sample_size)
+
+        return df_sampled
+
     def split_data(self, X, y, test_size=0.2):
         return train_test_split(
             X, y, test_size=test_size, random_state=self.random_state
@@ -65,6 +85,7 @@ class DataPreprocessor:
         sample_size=None,
     ):
         df = self.load_data(filepath, sample_size)
+        # df = self.load_and_sample_data(filepath, sample_size)
 
         X = df.drop(target_column, axis=1)
         y = df[target_column]
@@ -73,8 +94,13 @@ class DataPreprocessor:
         categorical_columns = X.select_dtypes(include=["object", "category"]).columns
         numeric_columns = X.select_dtypes(include=[np.number]).columns
 
-        # Split the data
-        X_train, X_test, y_train, y_test = self.split_data(X, y, test_size)
+        # # Split the data
+        # X_train, X_test, y_train, y_test = self.split_data(X, y, test_size)
+
+        # Split the data temporally
+        split_index = int(len(df) * (1 - test_size))
+        X_train, X_test = X.iloc[:split_index], X.iloc[split_index:]
+        y_train, y_test = y.iloc[:split_index], y.iloc[split_index:]
 
         # Create and fit the categorical encoder
         self.categorical_encoder = ColumnTransformer(

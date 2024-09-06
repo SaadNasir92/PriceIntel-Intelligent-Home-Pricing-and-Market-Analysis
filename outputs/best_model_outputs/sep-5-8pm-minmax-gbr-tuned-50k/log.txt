@@ -1,0 +1,270 @@
+(.venv) (base)
+saad@DESKTOP-H0RJ60L MINGW64 C:/Users/saad/AppData/Local/Programs/Microsoft VS Code (main)
+$ "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis/.venv/Scripts/python.exe" "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis/main.py"
+Market-Analysis/main.py";fc38f490-6dcd-4406-99e8-86bdf3f6b565Making feature engineer class
+preprocessing data
+engineering features. custom print statement
+INFO:src.feature_engineering:Using features: ['city_Aubrey' 'city_Celina' 'city_Dallas' ... 'year_closed'
+ 'median_price_of_nearby_homes' 'final_sentiment_score']
+INFO:src.feature_engineering:X_train shape: (40000, 1495)
+INFO:src.feature_engineering:X_test shape: (10000, 1495)
+INFO:src.feature_engineering:X_train shape after interactions: (40000, 1501)
+INFO:src.feature_engineering:X_test shape after interactions: (10000, 1501)
+INFO:src.feature_engineering:X_train shape after polynomial: (40000, 10)   
+INFO:src.feature_engineering:X_test shape after polynomial: (10000, 10)    
+INFO:src.feature_engineering:Selected 50 features
+INFO:src.feature_engineering:Engineered features shape: 50
+INFO:src.feature_engineering:Selected features: ['city_Aubrey', 'marital_status_Married', 'marital_status_Unmarried', 'master_location_Upstairs', 'closing_date_2021-04-10', 'closing_date_2021-09-17', 'closing_date_2022-02-28', 'closing_date_2022-06-22', 'closing_date_2022-07-26', 'closing_date_2022-12-11', 'closing_date_2023-07-20', 'closing_date_2023-08-22', 'zipcode', 'credit_score', 'annual_income', 'dti', 'square_footage', 'bedroom_count', 'lot_size', 'appraised_value', 'unemployment_rate']
+INFO:__main__:Feature engineering completed. Number of selected features: 21
+INFO:src.model_training:Starting Randomized Search for GBR...
+INFO:src.model_training:Best parameters from Randomized Search: {'subsample': 0.9, 'n_estimators': 100, 'min_samples_leaf': 2, 'max_features': 0.95, 'max_depth': 2, 'learning_rate': 0.08}
+INFO:src.model_training:Starting Grid Search for GBR...
+C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\model_selection\_validation.py:540: FitFailedWarning:
+729 fits failed out of a total of 2187.
+The score on these train-test partitions for these parameters will be set to nan.
+If these failures are not expected, you can try to debug them by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+564 fits failed with the following error:
+Traceback (most recent call last):
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\base.py", line 1466, in wrapper
+    estimator._validate_params()
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\base.py", line 666, in _validate_params 
+    validate_parameter_constraints(
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 95, in validate_parameter_constraints
+    raise InvalidParameterError(
+sklearn.utils._param_validation.InvalidParameterError: The 'max_features' parameter of GradientBoostingRegressor must be an int in the range [1, inf), a float in the range (0.0, 1.0], a str among {'sqrt', 'log2'} or None. Got 1.045 instead.
+
+--------------------------------------------------------------------------------
+165 fits failed with the following error:
+Traceback (most recent call last):
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\base.py", line 1466, in wrapper
+    estimator._validate_params()
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\base.py", line 666, in _validate_params 
+    validate_parameter_constraints(
+  File "C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\utils\_param_validation.py", line 95, in validate_parameter_constraints
+    raise InvalidParameterError(
+sklearn.utils._param_validation.InvalidParameterError: The 'max_features' parameter of GradientBoostingRegressor must be an int in the range [1, inf), a float in the range (0.0, 1.0], a str among {'log2', 'sqrt'} or None. Got 1.045 instead.
+
+  warnings.warn(some_fits_failed_message, FitFailedWarning)
+C:\Users\saad\Documents\Coding Projects\SMU Bootcamp projects\PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis\.venv\Lib\site-packages\sklearn\model_selection\_search.py:1102: UserWarning: One or more of the test scores are non-finite: [-5.02711431e+09 -5.02958693e+09 -5.03053018e+09 -5.02518390e+09
+ -5.02791830e+09 -5.02852457e+09 -5.02340677e+09 -5.02634583e+09
+ -5.02662740e+09 -5.02711431e+09 -5.02958693e+09 -5.03053018e+09
+ -5.02518390e+09 -5.02791830e+09 -5.02852457e+09 -5.02340677e+09
+ -5.02634583e+09 -5.02662740e+09 -5.02711431e+09 -5.02958693e+09
+ -5.03053018e+09 -5.02518390e+09 -5.02791830e+09 -5.02852457e+09
+ -5.02340677e+09 -5.02634583e+09 -5.02662740e+09 -5.02447129e+09
+ -5.02847459e+09 -5.03000936e+09 -5.02280925e+09 -5.02657387e+09
+ -5.02815260e+09 -5.02123576e+09 -5.02482726e+09 -5.02620379e+09
+ -5.02447129e+09 -5.02847459e+09 -5.03000936e+09 -5.02280925e+09
+ -5.02657387e+09 -5.02815260e+09 -5.02123576e+09 -5.02482726e+09
+ -5.02620379e+09 -5.02447129e+09 -5.02847459e+09 -5.03000936e+09
+ -5.02280925e+09 -5.02657387e+09 -5.02815260e+09 -5.02123576e+09
+ -5.02482726e+09 -5.02620379e+09             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan -4.98873200e+09 -4.98888619e+09 -4.98710124e+09
+ -4.98875074e+09 -4.98905258e+09 -4.98716718e+09 -4.98873096e+09
+ -4.98915982e+09 -4.98712902e+09 -4.98901106e+09 -4.98867245e+09
+ -4.98705260e+09 -4.98892296e+09 -4.98882442e+09 -4.98708982e+09
+ -4.98890161e+09 -4.98893036e+09 -4.98700844e+09 -4.98896132e+09
+ -4.98885875e+09 -4.98745286e+09 -4.98887391e+09 -4.98901040e+09
+ -4.98741794e+09 -4.98885331e+09 -4.98911811e+09 -4.98733274e+09
+ -4.98855914e+09 -4.98724565e+09 -4.98660874e+09 -4.98846410e+09
+ -4.98740763e+09 -4.98665439e+09 -4.98860116e+09 -4.98749109e+09
+ -4.98667402e+09 -4.98832488e+09 -4.98770116e+09 -4.98641392e+09
+ -4.98823325e+09 -4.98789638e+09 -4.98646365e+09 -4.98836728e+09
+ -4.98787007e+09 -4.98649354e+09 -4.98848431e+09 -4.98808773e+09
+ -4.98603281e+09 -4.98839412e+09 -4.98827936e+09 -4.98616028e+09
+ -4.98858432e+09 -4.98811584e+09 -4.98625832e+09             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan -4.98944687e+09 -4.98998243e+09
+ -4.99256382e+09 -4.98948840e+09 -4.99000676e+09 -4.99303033e+09
+ -4.98984009e+09 -4.99002888e+09 -4.99318843e+09 -4.99012652e+09
+ -4.99050226e+09 -4.99231720e+09 -4.99020724e+09 -4.99052997e+09
+ -4.99252204e+09 -4.99045568e+09 -4.99072630e+09 -4.99257322e+09
+ -4.99090014e+09 -4.98930669e+09 -4.99252082e+09 -4.99084543e+09
+ -4.98937810e+09 -4.99267778e+09 -4.99115819e+09 -4.98957382e+09
+ -4.99289217e+09 -4.98895931e+09 -4.99021070e+09 -4.99138674e+09
+ -4.98905824e+09 -4.99016663e+09 -4.99122652e+09 -4.98932331e+09
+ -4.99010579e+09 -4.99134834e+09 -4.98851951e+09 -4.99035518e+09
+ -4.99157668e+09 -4.98839246e+09 -4.99053189e+09 -4.99161648e+09
+ -4.98853315e+09 -4.99048360e+09 -4.99151472e+09 -4.98814542e+09
+ -4.99044096e+09 -4.99085136e+09 -4.98817245e+09 -4.99048265e+09
+ -4.99094528e+09 -4.98833473e+09 -4.99052807e+09 -4.99078941e+09
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan -5.01541521e+09
+ -5.01426156e+09 -5.01357147e+09 -5.01439378e+09 -5.01321462e+09
+ -5.01245074e+09 -5.01363865e+09 -5.01218409e+09 -5.01133717e+09
+ -5.01541521e+09 -5.01426156e+09 -5.01357147e+09 -5.01439378e+09
+ -5.01321462e+09 -5.01245074e+09 -5.01363865e+09 -5.01218409e+09
+ -5.01133717e+09 -5.01541521e+09 -5.01426156e+09 -5.01357147e+09
+ -5.01439378e+09 -5.01321462e+09 -5.01245074e+09 -5.01363865e+09
+ -5.01218409e+09 -5.01133717e+09 -5.01123799e+09 -5.01103136e+09
+ -5.01141334e+09 -5.01020947e+09 -5.00998853e+09 -5.01026321e+09
+ -5.00955760e+09 -5.00902321e+09 -5.00895241e+09 -5.01123799e+09
+ -5.01103136e+09 -5.01141334e+09 -5.01020947e+09 -5.00998853e+09
+ -5.01026321e+09 -5.00955760e+09 -5.00902321e+09 -5.00895241e+09
+ -5.01123799e+09 -5.01103136e+09 -5.01141334e+09 -5.01020947e+09
+ -5.00998853e+09 -5.01026321e+09 -5.00955760e+09 -5.00902321e+09
+ -5.00895241e+09             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+ -4.98752903e+09 -4.98839878e+09 -4.98947608e+09 -4.98751502e+09
+ -4.98864257e+09 -4.98960323e+09 -4.98733538e+09 -4.98876074e+09
+ -4.98962847e+09 -4.98764722e+09 -4.98877994e+09 -4.98953700e+09
+ -4.98763354e+09 -4.98906183e+09 -4.98961147e+09 -4.98767450e+09
+ -4.98906711e+09 -4.98953906e+09 -4.98757485e+09 -4.98851963e+09
+ -4.98973792e+09 -4.98762201e+09 -4.98845418e+09 -4.98980776e+09
+ -4.98775506e+09 -4.98845570e+09 -4.98995287e+09 -4.98785551e+09
+ -4.98702467e+09 -4.98784607e+09 -4.98780468e+09 -4.98710115e+09
+ -4.98791913e+09 -4.98779900e+09 -4.98715887e+09 -4.98788775e+09
+ -4.98789854e+09 -4.98801903e+09 -4.98806066e+09 -4.98783830e+09
+ -4.98798364e+09 -4.98813530e+09 -4.98783332e+09 -4.98812966e+09
+ -4.98804969e+09 -4.98799337e+09 -4.98793287e+09 -4.98792663e+09
+ -4.98811878e+09 -4.98800148e+09 -4.98803168e+09 -4.98811056e+09
+ -4.98807679e+09 -4.98817593e+09             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan -4.98983281e+09 -4.99228643e+09 -4.99063533e+09
+ -4.98982161e+09 -4.99231645e+09 -4.99053615e+09 -4.99022544e+09
+ -4.99230548e+09 -4.99074423e+09 -4.99063568e+09 -4.99114323e+09
+ -4.99223348e+09 -4.99088476e+09 -4.99123566e+09 -4.99252472e+09
+ -4.99134429e+09 -4.99115053e+09 -4.99254461e+09 -4.98951296e+09
+ -4.99056676e+09 -4.99156282e+09 -4.98942766e+09 -4.99073950e+09
+ -4.99168315e+09 -4.98995750e+09 -4.99081121e+09 -4.99173722e+09
+ -4.99204377e+09 -4.99208142e+09 -4.99159112e+09 -4.99216052e+09
+ -4.99213267e+09 -4.99227936e+09 -4.99228250e+09 -4.99215564e+09
+ -4.99244969e+09 -4.99240257e+09 -4.99007430e+09 -4.99117890e+09
+ -4.99263886e+09 -4.99005074e+09 -4.99125396e+09 -4.99276971e+09
+ -4.99010036e+09 -4.99149907e+09 -4.99095991e+09 -4.98981270e+09
+ -4.98993905e+09 -4.99107532e+09 -4.99003346e+09 -4.99038908e+09
+ -4.99158083e+09 -4.99012326e+09 -4.99063307e+09             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan -5.00849454e+09 -5.00372086e+09
+ -5.00716063e+09 -5.00781215e+09 -5.00313691e+09 -5.00637014e+09
+ -5.00725630e+09 -5.00257558e+09 -5.00573385e+09 -5.00849454e+09
+ -5.00372086e+09 -5.00716063e+09 -5.00781215e+09 -5.00313691e+09
+ -5.00637014e+09 -5.00725630e+09 -5.00257558e+09 -5.00573385e+09
+ -5.00849454e+09 -5.00372086e+09 -5.00716063e+09 -5.00781215e+09
+ -5.00313691e+09 -5.00637014e+09 -5.00725630e+09 -5.00257558e+09
+ -5.00573385e+09 -5.00452184e+09 -5.00284830e+09 -5.00589280e+09
+ -5.00380612e+09 -5.00220349e+09 -5.00522580e+09 -5.00317658e+09
+ -5.00164772e+09 -5.00453262e+09 -5.00452184e+09 -5.00284830e+09
+ -5.00589280e+09 -5.00380612e+09 -5.00220349e+09 -5.00522580e+09
+ -5.00317658e+09 -5.00164772e+09 -5.00453262e+09 -5.00452184e+09
+ -5.00284830e+09 -5.00589280e+09 -5.00380612e+09 -5.00220349e+09
+ -5.00522580e+09 -5.00317658e+09 -5.00164772e+09 -5.00453262e+09
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan -4.99219469e+09
+ -4.99197974e+09 -4.98827351e+09 -4.99212789e+09 -4.99198276e+09
+ -4.98818713e+09 -4.99226655e+09 -4.99203126e+09 -4.98823725e+09
+ -4.99196843e+09 -4.99218209e+09 -4.98816850e+09 -4.99190357e+09
+ -4.99214862e+09 -4.98813638e+09 -4.99203487e+09 -4.99225767e+09
+ -4.98806089e+09 -4.99180403e+09 -4.99229023e+09 -4.98905033e+09
+ -4.99189862e+09 -4.99224689e+09 -4.98903198e+09 -4.99196794e+09
+ -4.99226681e+09 -4.98891607e+09 -4.99120272e+09 -4.99331618e+09
+ -4.98927276e+09 -4.99128259e+09 -4.99345399e+09 -4.98955172e+09
+ -4.99124990e+09 -4.99343713e+09 -4.98958754e+09 -4.99109639e+09
+ -4.99337114e+09 -4.98893708e+09 -4.99123044e+09 -4.99338435e+09
+ -4.98901446e+09 -4.99117479e+09 -4.99338746e+09 -4.98912460e+09
+ -4.99056595e+09 -4.99339708e+09 -4.98957302e+09 -4.99062422e+09
+ -4.99358624e+09 -4.98981211e+09 -4.99080238e+09 -4.99371243e+09
+ -4.98984474e+09             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+ -4.99084231e+09 -4.99359332e+09 -4.99426890e+09 -4.99085169e+09
+ -4.99389314e+09 -4.99418462e+09 -4.99126075e+09 -4.99394768e+09
+ -4.99405943e+09 -4.99158860e+09 -4.99421340e+09 -4.99495720e+09
+ -4.99154673e+09 -4.99445096e+09 -4.99518920e+09 -4.99172342e+09
+ -4.99452995e+09 -4.99536566e+09 -4.99094054e+09 -4.99487334e+09
+ -4.99222894e+09 -4.99081639e+09 -4.99506552e+09 -4.99232279e+09
+ -4.99146375e+09 -4.99539945e+09 -4.99267196e+09 -4.99167972e+09
+ -4.99400911e+09 -4.99637358e+09 -4.99186173e+09 -4.99430893e+09
+ -4.99630424e+09 -4.99222640e+09 -4.99431046e+09 -4.99658189e+09
+ -4.99285246e+09 -4.99365527e+09 -4.99700330e+09 -4.99303737e+09
+ -4.99389527e+09 -4.99723866e+09 -4.99320162e+09 -4.99419312e+09
+ -4.99731313e+09 -4.98855674e+09 -4.99263886e+09 -4.99528489e+09
+ -4.98859942e+09 -4.99299353e+09 -4.99575608e+09 -4.98882592e+09
+ -4.99335852e+09 -4.99572860e+09             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan             nan             nan             nan
+             nan]
+  warnings.warn(
+INFO:src.model_training:Best parameters from Grid Search: {'learning_rate': 0.07200000000000001, 'max_depth': 2, 'max_features': 0.95, 'min_samples_leaf': 3, 'n_estimators': 99, 'subsample': 0.9900000000000001}
+INFO:__main__:Best GBR model evaluation results: {'MSE': 4977933939.397508, 'RMSE': 70554.4749778319, 'MAE': 56170.09223814874, 'R2': 0.8379824210233835}
+Model Performance Summary:
+        Model           MSE          RMSE           MAE        R2
+0  GBR_MinMax  4.977934e+09  70554.474978  56170.092238  0.837982
+INFO:__main__:Selected features for importance plot: ['city_Aubrey', 'marital_status_Married', 'marital_status_Unmarried', 'master_location_Upstairs', 'closing_date_2021-04-10', 'closing_date_2021-09-17', 'closing_date_2022-02-28', 'closing_date_2022-06-22', 'closing_date_2022-07-26', 'closing_date_2022-12-11', 'closing_date_2023-07-20', 'closing_date_2023-08-22', 'zipcode', 'credit_score', 'annual_income', 'dti', 'square_footage', 'bedroom_count', 'lot_size', 'appraised_value', 'unemployment_rate']
+Warning: Number of feature names (21) does not match number of features in X (50)
+Feature Feature_43: 0.20825288795854952
+Feature Feature_16: 0.17416907099451476
+Feature Feature_34: 0.1412190673476125
+Feature Feature_39: 0.0013166455149325907
+Feature Feature_46: 0.0008696986503490933
+Feature Feature_41: 8.019288177981698e-05
+Feature Feature_14: 6.423653612050995e-05
+Feature Feature_20: 6.0104117467207896e-05
+Feature Feature_45: 5.754443263451536e-05
+Feature Feature_47: 5.7048919192381756e-05
+Feature Feature_37: 5.5974606417397156e-05
+Feature Feature_44: 3.0065759752451182e-05
+Feature Feature_38: 1.3327728553780283e-05
+Feature Feature_15: 1.2072345636782168e-05
+Feature Feature_33: 6.6206689053771585e-06
+Feature Feature_49: 2.7409341606943194e-06
+Feature Feature_36: 3.720144542973536e-07
+Feature Feature_9: 0.0
+Feature Feature_13: 0.0
+Feature Feature_11: 0.0
+Model saved to models\best_model_GBR_tuned_50000.joblib
+INFO:__main__:Total execution time: 3076.16 seconds
+INFO:__main__:Peak memory usage: 4968.31 MB
+(.venv) (base) 
+saad@DESKTOP-H0RJ60L MINGW64 C:/Users/saad/AppData/Local/Programs/Microsoft VS Code (main)
