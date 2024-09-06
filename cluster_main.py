@@ -6,7 +6,7 @@ start_time = time.time()
 process = psutil.Process()
 
 
-clusterer = KMeansClustering(sample_size=5000, n_clusters=5)
+clusterer = KMeansClustering(sample_size=50000, n_clusters=5)
 X = clusterer.load_and_preprocess_data("data/processed/processed_synthetic_cleaned.csv")
 clusterer.perform_clustering(X)
 clusterer.elbow_method(X)

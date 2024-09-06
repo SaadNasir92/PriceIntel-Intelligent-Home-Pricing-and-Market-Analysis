@@ -1,0 +1,15 @@
+(.venv) (base)
+saad@DESKTOP-H0RJ60L MINGW64 C:/Users/saad/AppData/Local/Programs/Microsoft VS Code (main)
+$ "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis/.venv/Scripts/python.exe" "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis/cluster_main.py"
+   Cluster   Size  Percentage  city_Aubrey  city_Celina  ...  unemployment_rate  current_market_interest_rate  year_closed  median_price_of_nearby_homes  final_sentiment_score
+0        0   6482      16.205     0.148411     0.103363  ...           0.366795                      0.201593     0.268744                      0.468794               0.408929
+1        1  10716      26.790     0.150989     0.109742  ...           0.391283                      0.188415     0.261478                      0.508922               0.297043
+2        2   9434      23.585     0.150625     0.108968  ...           0.369329                      0.190601     0.252809                      0.448815               0.298382
+3        3   5510      13.775     0.141198     0.100726  ...           0.370169                      0.201966     0.272535                      0.473439               0.211298
+4        4   7858      19.645     0.156783     0.105752  ...           0.376922                      0.195514     0.267074                      0.478428               0.999999
+
+[5 rows x 1498 columns]
+Total execution time: 19.33 seconds
+Peak memory usage: 1540.38 MB      
+(.venv) (base) 
+saad@DESKTOP-H0RJ60L MINGW64 C:/Users/saad/AppData/Local/Programs/Microsoft VS Code (main)
