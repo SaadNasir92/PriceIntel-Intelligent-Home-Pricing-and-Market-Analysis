@@ -93,7 +93,12 @@ class ModelEvaluator:
             )
             feature_names = [f"Feature_{i}" for i in range(X.shape[1])]
 
-        self.save_feature_importance_data(importances, feature_names)
+        if isinstance(feature_names, pd.Index):
+            feature_names = feature_names.tolist()
+
+        feature_mapping = {i: name for i, name in enumerate(feature_names)}
+
+        self.save_feature_importance_data(importances, feature_mapping)
 
         indices = np.argsort(importances)[::-1]
         valid_indices = [i for i in indices if i < len(feature_names)]
@@ -104,7 +109,7 @@ class ModelEvaluator:
         plt.title(f"Top {n_features} Feature Importances for {model_name}")
         plt.bar(range(n_features), importances[top_indices])
         plt.xticks(
-            range(n_features), [feature_names[i] for i in top_indices], rotation=90
+            range(n_features), [feature_mapping[i] for i in top_indices], rotation=90
         )
         plt.tight_layout()
         plt.savefig(os.path.join(self.plot_dir, f"{model_name}_feature_importance.png"))
@@ -113,7 +118,7 @@ class ModelEvaluator:
         # Log feature importances
         for i in range(n_features):
             print(
-                f"Feature {feature_names[top_indices[i]]}: {importances[top_indices[i]]}"
+                f"Feature {feature_mapping[top_indices[i]]}: {importances[top_indices[i]]}"
             )
 
     def plot_learning_curve(self, model, X, y, model_name):
@@ -198,9 +203,16 @@ class ModelEvaluator:
         data.to_csv(os.path.join(self.data_dir, filename), index=False)
 
     def save_feature_importance_data(
-        self, importances, feature_names, filename="feature_importance_data.csv"
+        self, importances, feature_mapping, filename="feature_importance_data.csv"
     ):
-        data = pd.DataFrame({"feature": feature_names, "importance": importances})
+        data = pd.DataFrame(
+            {
+                "feature_index": range(len(importances)),
+                "feature_name": [feature_mapping[i] for i in range(len(importances))],
+                "importance": importances,
+            }
+        )
+        data = data.sort_values("importance", ascending=False)
         data.to_csv(os.path.join(self.data_dir, filename), index=False)
 
     def save_learning_curve_data(
