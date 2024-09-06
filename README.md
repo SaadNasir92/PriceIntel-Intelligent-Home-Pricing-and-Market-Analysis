@@ -7,8 +7,8 @@ This project aims to develop a predictive pricing model for new housing communit
 ### Key Components
 1. Synthetic Data Generation
 2. NLP Sentiment Analysis
-3. Clustering Analysis (in development)
-4. Predictive Pricing Model (in development)
+3. Predictive Pricing Model
+4.  Clustering Analysis (in development)
 5. Interactive User Interface (in development)
 
 ## Current Progress
@@ -80,9 +80,20 @@ def adjust_mixed_sentiment(text, score):
 - Integration: Incorporate sentiment scores from NLP analysis
 
 ### 4. Predictive Pricing Model
-- Objective: Develop a model to predict housing prices based on all available features
-- Planned Approach: Evaluate multiple algorithms (e.g., Random Forest, XGBoost, Neural Networks)
-- Integration: Utilize sentiment scores and cluster assignments as input features
+Model: Gradient Boosting Regressor (GBR)
+Performance Metrics:
+R2 Score: 0.8379
+RMSE: 70,554.47
+MAE: 56,170.09
+
+Key Features: Feature engineering, hyperparameter tuning, feature importance analysis
+Best Hyperparameters:
+learning_rate: 0.072
+max_depth: 2
+max_features: 0.95
+min_samples_leaf: 3
+n_estimators: 99
+subsample: 0.99
 
 ### 5. Interactive User Interface
 - Objective: Create a user-friendly interface for live price predictions and recommendations
@@ -95,7 +106,6 @@ def adjust_mixed_sentiment(text, score):
 ## Next Steps
 
 1. Begin clustering analysis, incorporating sentiment scores
-2. Develop and train the predictive pricing model
 3. Design and implement the structure of the interactive user interface
 4. Conduct thorough testing and validation of all components
 5. Prepare final presentation, highlighting the potential of clustering analysis for targeted marketing strategies
