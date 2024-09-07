@@ -1,0 +1,45 @@
+(.venv) (base)
+saad@DESKTOP-H0RJ60L MINGW64 C:/Users/saad/AppData/Local/Programs/Microsoft VS Code (main)
+$ "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis/.venv/Scripts/python.exe" "c:/Users/saad/Documents/Coding Projects/SMU Bootcamp projects/PriceIntel-Intelligent-Home-Pricing-and-Market-Analysis/cluster_main.py"
+Market-Analysis/cluster_main.py";0867b2c6-8bfe-4c5e-bbbc-640c0eeb0eb32024-09-06 18:15:38,885 - INFO - Initial shape of X: (40000, 1495)
+2024-09-06 18:15:38,886 - INFO - Initial columns: ['city_Aubrey', 'city_Celina', 'city_Dallas', 'city_Fate', 'city_Frisco', 'city_Josephine', 'city_Little Elm', 'city_McKinney', 'marital_status_Married', 'marital_status_Unmarried']...
+2024-09-06 18:15:38,890 - INFO - Initial data types:
+float32    1495
+Name: count, dtype: int64
+Shape of X: (40000, 1495)
+Shape of y: (40000,)
+Columns in X: ['city_Aubrey', 'city_Celina', 'city_Dallas', 'city_Fate', 'city_Frisco', 'city_Josephine', 'city_Little Elm', 'city_McKinney', 'marital_status_Married', 'marital_status_Unmarried']...Data types in X:
+float32    1495
+Name: count, dtype: int64
+Successfully converted closing_month to int64 timestamp.
+Potential categorical columns: 21
+Numerical columns: 21
+Selected features: ['city_Aubrey', 'city_Little Elm', 'marital_status_Married', 'marital_status_Unmarried', 'master_location_Downstairs', 'location_Suburban', 'city_Celina', 'feedback_The process was smooth but some issues with the kitchen.', 'city_Josephine', 'master_location_Upstairs', 'city_Dallas', 'city_Fate', 'city_Frisco', 'feedback_Very happy with the final product, but the timeline was delayed.', 'city_McKinney', 'square_footage', 'annual_income', 'unemployment_rate', 'current_market_interest_rate', 'upgrade_score', 'zipcode', 'lot_size', 'closing_interest_rate', 'credit_score', 'inflation_rate', 'bedroom_count', 'median_price_of_nearby_homes', 'final_sentiment_score', 'family_size', 'monthly_payment']
+Feature selection complete. Number of selected features: 30
+Selected features: ['city_Aubrey', 'city_Little Elm', 'marital_status_Married', 'marital_status_Unmarried', 'master_location_Downstairs', 'location_Suburban', 'city_Celina', 'feedback_The process was smooth but some issues with the kitchen.', 'city_Josephine', 'master_location_Upstairs', 'city_Dallas', 'city_Fate', 'city_Frisco', 'feedback_Very happy with the final product, but the timeline was delayed.', 'city_McKinney', 'square_footage', 'annual_income', 'unemployment_rate', 'current_market_interest_rate', 'upgrade_score', 'zipcode', 'lot_size', 'closing_interest_rate', 'credit_score', 'inflation_rate', 'bedroom_count', 'median_price_of_nearby_homes', 'final_sentiment_score', 'family_size', 'monthly_payment']
+2024-09-06 18:15:45,242 - INFO - Shape after feature selection: (40000, 30)
+2024-09-06 18:15:45,242 - INFO - Number of selected features: 30
+2024-09-06 18:15:45,243 - INFO - Selected features: ['city_Aubrey', 'city_Little Elm', 'marital_status_Married', 'marital_status_Unmarried', 'master_location_Downstairs', 'location_Suburban', 'city_Celina', 'feedback_The process was smooth but some issues with the kitchen.', 'city_Josephine', 'master_location_Upstairs', 'city_Dallas', 'city_Fate', 'city_Frisco', 'feedback_Very happy with the final product, but the timeline was delayed.', 'city_McKinney', 'square_footage', 'annual_income', 'unemployment_rate', 'current_market_interest_rate', 'upgrade_score', 'zipcode', 'lot_size', 'closing_interest_rate', 'credit_score', 'inflation_rate', 'bedroom_count', 'median_price_of_nearby_homes', 'final_sentiment_score', 'family_size', 'monthly_payment']
+2024-09-06 18:15:45,244 - INFO - Data types after feature selection:
+float32    15
+float64    15
+Name: count, dtype: int64
+2024-09-06 18:16:00,383 - INFO - Silhouette Score: 0.0994182838642296
+2024-09-06 18:17:41,159 - INFO - Clustering Comparison Results: {'kmeans_silhouette': 0.0994182838642296, 'hc_silhouette': 0.10822798856152281}
+Shape of X: (40000, 30)
+Number of clusters: 5
+Shape of cluster_centers: (5, 30)
+Number of selected features: 30
+2024-09-06 18:17:42,541 - INFO - Analysis results:
+2024-09-06 18:17:42,542 - INFO -    Cluster   Size  Percentage  city_Aubrey  city_Little Elm  marital_status_Married  ...  inflation_rate  bedroom_count  median_price_of_nearby_homes  final_sentiment_score  family_size  monthly_payment
+0        0   6521     16.3025     0.147677         0.106732           -2.886580e-15  ...        0.359057       0.388437                      0.473672               0.564076     0.334765         0.773373
+1        1   8445     21.1125     0.149082         0.117940            4.825340e-01  ...        0.347527       0.377699                      0.492135               0.260927     0.312848         0.776847
+2        2   4631     11.5775     0.152235         0.118117            1.000000e+00  ...        0.368798       0.394515                      0.467572               0.560211     0.319585         0.798450
+3        3   7612     19.0300     0.152260         0.102470            4.138203e-01  ...        0.365211       0.385313                      0.466664               0.260927     0.321028         0.781717
+4        4  12791     31.9775     0.150496         0.115003            4.768978e-01  ...        0.343727       0.377166                      0.479409               0.563569     0.312954         0.774092
+
+[5 rows x 33 columns]
+2024-09-06 18:17:42,588 - INFO - Total execution time: 125.30 seconds
+2024-09-06 18:17:42,590 - INFO - Peak memory usage: 10497.39 MB
+(.venv) (base) 
+saad@DESKTOP-H0RJ60L MINGW64 C:/Users/saad/AppData/Local/Programs/Microsoft VS Code (main)
