@@ -14,7 +14,7 @@ start_time = time.time()
 process = psutil.Process()
 
 try:
-    clusterer = KMeansClustering(sample_size=50000, n_clusters=5)
+    clusterer = KMeansClustering(sample_size=250000, n_clusters=5)
     X, y = clusterer.load_and_preprocess_data(
         "data/processed/processed_synthetic_cleaned.csv"
     )
@@ -61,11 +61,11 @@ try:
     silhouette_avg = clusterer.silhouette_analysis(X_selected)
     logging.info(f"Silhouette Score: {silhouette_avg}")
 
-    hc_labels = clusterer.hierarchical_clustering(X_selected)
-    comparison_results = clusterer.compare_clusterings(
-        X_selected, kmeans_labels, hc_labels
-    )
-    logging.info(f"Clustering Comparison Results: {comparison_results}")
+    # hc_labels = clusterer.hierarchical_clustering(X_selected)
+    # comparison_results = clusterer.compare_clusterings(
+    #     X_selected, kmeans_labels, hc_labels
+    # )
+    # logging.info(f"Clustering Comparison Results: {comparison_results}")
 
     clusterer.elbow_method(X_selected)
     clusterer.visualize_clusters(X_selected)

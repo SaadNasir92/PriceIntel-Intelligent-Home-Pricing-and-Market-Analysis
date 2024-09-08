@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.cluster import KMeans, AgglomerativeClustering
+from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.feature_selection import mutual_info_regression, f_regression
 from sklearn.metrics import silhouette_score
@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from src.data_preprocessing import DataPreprocessor
 import os
 import joblib
-import logging
 
 
 class KMeansClustering:
@@ -198,20 +197,20 @@ class KMeansClustering:
         silhouette_avg = silhouette_score(X, self.kmeans.labels_)
         return silhouette_avg
 
-    def hierarchical_clustering(self, X):
-        hc = AgglomerativeClustering(n_clusters=self.n_clusters)
-        hc_labels = hc.fit_predict(X)
-        return hc_labels
+    # def hierarchical_clustering(self, X):
+    #     hc = AgglomerativeClustering(n_clusters=self.n_clusters)
+    #     hc_labels = hc.fit_predict(X)
+    #     return hc_labels
 
-    def compare_clusterings(self, X, kmeans_labels, hc_labels):
-        kmeans_silhouette = silhouette_score(X, kmeans_labels)
-        hc_silhouette = silhouette_score(X, hc_labels)
+    # def compare_clusterings(self, X, kmeans_labels, hc_labels):
+    #     kmeans_silhouette = silhouette_score(X, kmeans_labels)
+    #     hc_silhouette = silhouette_score(X, hc_labels)
 
-        plt.figure(figsize=(12, 6))
-        plt.bar(["K-means", "Hierarchical"], [kmeans_silhouette, hc_silhouette])
-        plt.title("Silhouette Score Comparison")
-        plt.ylabel("Silhouette Score")
-        plt.savefig("outputs/cluster/clustering_comparison.png")
-        plt.close()
+    #     plt.figure(figsize=(12, 6))
+    #     plt.bar(["K-means", "Hierarchical"], [kmeans_silhouette, hc_silhouette])
+    #     plt.title("Silhouette Score Comparison")
+    #     plt.ylabel("Silhouette Score")
+    #     plt.savefig("outputs/cluster/clustering_comparison.png")
+    #     plt.close()
 
-        return {"kmeans_silhouette": kmeans_silhouette, "hc_silhouette": hc_silhouette}
+    #     return {"kmeans_silhouette": kmeans_silhouette, "hc_silhouette": hc_silhouette}
