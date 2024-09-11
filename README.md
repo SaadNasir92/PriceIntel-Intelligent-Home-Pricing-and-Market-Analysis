@@ -1,17 +1,17 @@
-# Housing Price Prediction with Sentiment Analysis
+# Housing Price Prediction with Sentiment Analysis and Market Segmentation
 
 ## Project Overview
 
 This project aims to develop a predictive pricing model for new housing communities using synthetic data, enhanced by natural language processing (NLP) for sentiment analysis and clustering for market segmentation. The final deliverable will be an interactive user interface for live price predictions and recommendations.
 
 ### Key Components
-1. Synthetic Data Generation
-2. NLP Sentiment Analysis
-3. Predictive Pricing Model
-4.  Clustering Analysis (in development)
-5. Interactive User Interface (in development)
+1. Synthetic Data Generation (Completed)
+2. NLP Sentiment Analysis (Completed)
+3. Predictive Pricing Model (Completed)
+4. Clustering Analysis (Completed)
+5. Interactive User Interface (In Development)
 
-## Current Progress
+## Completed Components
 
 ### 1. Synthetic Data Generation
 - **Status**: Completed
@@ -26,34 +26,55 @@ This project aims to develop a predictive pricing model for new housing communit
   - Custom lexicon for domain-specific terms
   - Refined scoring mechanism for mixed sentiments
   - Integration of sentiment scores into the main dataset
+- **Results**:
+  - Sentiment score range: -0.4588 to 0.7424
+  - Mean sentiment score: 0.073690
+  - Standard deviation: 0.370224
 
-#### Sample Code: Custom Lexicon Addition
+### 3. Predictive Pricing Model
+- **Status**: Completed
+- **Model**: Gradient Boosting Regressor (GBR)
+- **Performance Metrics**:
+  - R2 Score: 0.8379
+  - RMSE: 70,554.47
+  - MAE: 56,170.09
+- **Key Features**: Feature engineering, hyperparameter tuning, feature importance analysis
+- **Best Hyperparameters**:
+  - learning_rate: 0.072
+  - max_depth: 2
+  - max_features: 0.95
+  - min_samples_leaf: 3
+  - n_estimators: 99
+  - subsample: 0.99
 
-```python
-custom_lexicon = {
-    'upgrade': 2.0, 'spacious': 1.5, 'delay': -1.5, 'issue': -1.0,
-    'smooth': 1.0, 'fantastic': 2.0, 'terrible': -2.0, 'happy': 1.5, 'love': 2.0
-}
-sia.lexicon.update(custom_lexicon)
-```
+### 4. Clustering Analysis
+- **Status**: Completed
+- **Algorithm**: K-means clustering
+- **Number of Clusters**: 5
+- **Key Implementations**:
+  - Feature selection using mutual information and f-regression
+  - Elbow method for determining optimal cluster number
+  - Cluster visualization using PCA
+  - Detailed cluster analysis and characterization
+- **Results**:
+  - Identified 5 distinct market segments
+  - Silhouette Score: 0.08478412337466534
+  - Cluster sizes range from 14.81% to 23.02% of the market
+  - Key differentiating factors: marital status, location preferences, customer feedback, economic indicators, and property characteristics
 
-#### Sample Code: Mixed Sentiment Adjustment
+## In Development
 
-```python
-def adjust_mixed_sentiment(text, score):
-    if "but" in text.lower() or "however" in text.lower():
-        return score * 0.75 if score > 0 else score * 1.25
-    return score
-```
-
-#### Results
-- Sentiment score range: -0.4588 to 0.7424
-- Mean sentiment score: 0.073690
-- Standard deviation: 0.370224
-
-![Sentiment Score Distribution](sentiment_distribution.png)
-
-*Note: Placeholder, will be updated*
+### 5. Interactive User Interface
+- **Objective**: Create a user-friendly interface for live price predictions and recommendations
+- **Planned Features**:
+  - Three-page interface:
+    1. Initial Interface: Live home price predictions without buyer data
+    2. Detailed Prediction and Clustering: Refined predictions with buyer data and cluster assignment
+    3. Enriched Cluster Segments Review: In-depth analysis of cluster segments
+  - Input form for user to enter housing and demographic data
+  - Real-time price prediction display
+  - Visualization of key factors influencing the prediction
+  - Recommendations based on market segmentation
 
 ## Feature List
 
@@ -72,47 +93,25 @@ def adjust_mixed_sentiment(text, score):
 ### Sentiment Feature
 - Sentiment score derived from feedback (added by NLP module)
 
-## In Development
-
-### 3. Clustering Analysis
-- Objective: Perform market segmentation based on demographic and housing preference data
-- Planned Approach: Utilize K-means or DBSCAN algorithms
-- Integration: Incorporate sentiment scores from NLP analysis
-
-### 4. Predictive Pricing Model
-Model: Gradient Boosting Regressor (GBR)
-Performance Metrics:
-R2 Score: 0.8379
-RMSE: 70,554.47
-MAE: 56,170.09
-
-Key Features: Feature engineering, hyperparameter tuning, feature importance analysis
-Best Hyperparameters:
-learning_rate: 0.072
-max_depth: 2
-max_features: 0.95
-min_samples_leaf: 3
-n_estimators: 99
-subsample: 0.99
-
-### 5. Interactive User Interface
-- Objective: Create a user-friendly interface for live price predictions and recommendations
-- Planned Features:
-  - Input form for user to enter housing and demographic data
-  - Real-time price prediction display
-  - Visualization of key factors influencing the prediction
-  - Recommendations based on market segmentation
-
 ## Next Steps
 
-1. Begin clustering analysis, incorporating sentiment scores
-3. Design and implement the structure of the interactive user interface
+1. Develop and implement the structure of the interactive user interface
+2. Integrate clustering results with the predictive pricing model in the UI
+3. Develop targeted marketing strategies for each identified market segment
 4. Conduct thorough testing and validation of all components
-5. Prepare final presentation, highlighting the potential of clustering analysis for targeted marketing strategies
+5. Prepare final presentation, highlighting:
+   - Predictive model performance and key price-driving features
+   - Clustering analysis insights for targeted marketing strategies
+   - Interactive nature of the user interface and its real-world applications
 
 ## Installation and Usage
 
 (To be updated as development progresses)
 
+## Contributors
 
+(List of team members and their roles)
 
+## License
+
+(Specify the license under which this project is released)

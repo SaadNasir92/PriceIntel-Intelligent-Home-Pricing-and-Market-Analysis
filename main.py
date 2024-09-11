@@ -1,8 +1,8 @@
-from src.data_preprocessing import DataPreprocessor
-from src.feature_engineering import FeatureEngineer
-from src.model_training import ModelTrainer
-from src.evaluation import ModelEvaluator
-from src.utils import save_model
+from src.pipeline.data_preprocessing import DataPreprocessor
+from src.pipeline.feature_engineering import FeatureEngineer
+from src.pipeline.model_training import ModelTrainer
+from src.pipeline.evaluation import ModelEvaluator
+from src.pipeline.utils import save_model
 import matplotlib
 import time
 import psutil

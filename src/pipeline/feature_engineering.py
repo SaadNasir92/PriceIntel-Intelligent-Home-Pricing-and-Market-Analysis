@@ -4,7 +4,6 @@ import numpy as np
 import logging
 import pandas as pd
 
-
 class FeatureEngineer:
     def __init__(
         self,
@@ -12,6 +11,7 @@ class FeatureEngineer:
         use_polynomial=True,
         polynomial_degree=2,
         k_best=50,
+        feature_importance_path="outputs/best_model_outputs/sep-5-8pm-minmax-gbr-tuned-50k/visualization_data/feature_importance_data.csv"
     ):
         self.important_features = important_features or [
             "square_footage",
@@ -26,6 +26,8 @@ class FeatureEngineer:
         self.logger = logging.getLogger(__name__)
         self.selected_feature_indices = None
         self.poly = None
+        self.feature_importance = self.load_feature_importance(feature_importance_path)
+        self.feature_order = self.feature_importance.index.tolist()
 
     def create_interaction_terms(self, X, interaction_pairs):
         if X is None:
@@ -131,6 +133,41 @@ class FeatureEngineer:
         )
 
         return X_train_selected, X_test_selected, selected_feature_names
+
+    def preprocess_single_sample(self, input_data):
+        if self.feature_importance is None:
+            raise ValueError("Feature importance data is not available. Cannot preprocess input.")
+
+        # Initialize a DataFrame with zeros for all 50 features
+        processed_data = pd.DataFrame(0, index=input_data.index, columns=self.feature_order)
+
+        # Map input features to the corresponding Feature_X
+        feature_mapping = {
+            'square_footage': 'Feature_43',
+            'upgrade_score': 'Feature_16',
+            'annual_income': 'Feature_34',
+            'credit_score': 'Feature_39'
+        }
+
+        # Fill in the values for the features we have
+        for input_feature, model_feature in feature_mapping.items():
+            if input_feature in input_data.columns and model_feature in processed_data.columns:
+                processed_data[model_feature] = input_data[input_feature]
+
+        # Ensure the order matches the feature importance order
+        processed_data = processed_data[self.feature_order]
+
+        return processed_data.values.flatten()
+
+
+    def load_feature_importance(self, filepath):
+        try:
+            feature_importance = pd.read_csv(filepath, index_col='feature')
+            feature_importance = feature_importance.sort_values('importance', ascending=False)
+            return feature_importance
+        except Exception as e:
+            print(f"Error loading feature importance data: {e}")
+            return None
 
 
 #  if self.use_polynomial:
