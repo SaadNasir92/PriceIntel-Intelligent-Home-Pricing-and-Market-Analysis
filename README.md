@@ -1,4 +1,4 @@
-# Housing Price Prediction with Sentiment Analysis and Market Segmentation
+# IntelliPryce - Housing Price Prediction with Sentiment Analysis and Market Segmentation
 
 ## Project Overview
 
@@ -116,7 +116,7 @@ class DataPreprocessor:
 ![Cluster visualization](outputs/readme/clustervis.png)
 *Cluster Visualization*
 
-![Elbow plot](outputs/best_model_outputs/sep-8-2am-cluster-5/elbow_method.png/)
+![Elbow plot](outputs/readme/elbow_method.png)
 *Elbow plot*
 
 ### 5. FIGMA Prototype (replacing Interactive UI)
