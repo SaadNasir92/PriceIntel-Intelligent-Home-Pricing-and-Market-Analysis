@@ -9,7 +9,7 @@
 - Reasoning: To create a tool that could revolutionize pricing strategies in the real estate market
 
 #### Synthetic Data Generation
-- Tool: CTGAN (Conditional Tabular Generative Adversarial Networks)
+- Tool: [CTGAN (Conditional Tabular Generative Adversarial Networks)]
 - Process: Multiple iterations to refine data quality
 - Challenges:
   1. Ensuring realistic correlations between features
@@ -21,10 +21,10 @@
 ### Timeline: Week 3
 
 #### Implementation
-- Tool: VADER (Valence Aware Dictionary and sEntiment Reasoner)
+- Tool: [VADER (Valence Aware Dictionary and sEntiment Reasoner)]
 - Key Additions:
-  1. Custom lexicon for real estate-specific terms
-  2. Refined scoring for mixed sentiments
+  1. [Custom lexicon] for real estate-specific terms
+  2. [Refined scoring for mixed sentiments]
 - Reasoning: To extract valuable insights from textual feedback, potentially improving prediction accuracy
 
 #### Integration
@@ -40,7 +40,7 @@
 - Comprehensive pipeline development
 - Models: Linear Regression, Ridge, Lasso, Random Forest, Gradient Boosting, Neural Network (Keras)
 - Scalers: Standard, Robust, MinMax
-- Evaluation: 5-fold cross-validation, multiple metrics (RMSE, MAE, R2)
+- Evaluation: [5-fold cross-validation], multiple metrics [(RMSE, MAE, R2)]
 - Reasoning: To thoroughly explore and compare various modeling approaches
 
 #### Challenges and Adjustments
@@ -77,7 +77,7 @@
    - Reasoning: Balance between granularity and interpretability of segments
 
 #### Outcome
-- Silhouette Score: 0.08478412337466534
+- [Silhouette Score: 0.08478412337466534]
 - Interpretation: Indicates some structure in the data, though with overlap between clusters
 - Reasoning for Acceptance: Provides meaningful segmentation for a proof-of-concept, with potential for refinement in real-world application
 
@@ -124,3 +124,23 @@
 
 This project, while facing various constraints and pivots, successfully demonstrated the potential of integrating advanced machine learning techniques in the real estate domain, setting a foundation for future development and application.
 
+[CTGAN (Conditional Tabular Generative Adversarial Networks)]:
+CTGAN is a type of GAN designed to generate synthetic tabular data. It learns the distribution of the original dataset, capturing complex relationships between features and enabling realistic data generation, especially for tabular data.
+
+[VADER (Valence Aware Dictionary and sEntiment Reasoner)]:
+VADER is a lexicon and rule-based sentiment analysis tool that is efficient for social media and general text. It assigns sentiment scores (positive, negative, neutral) based on words and phrases in the text, making it easy to analyze customer feedback.
+
+[Custom lexicon]:
+A custom lexicon refers to a tailored dictionary of terms that is specific to the domain (e.g., real estate terms). You can create this to improve sentiment analysis by including industry-specific words that may not be in a general sentiment lexicon.
+
+[Refined scoring for mixed sentiments]:
+This involves adjusting how VADER scores sentences that have both positive and negative sentiments. For example, balancing conflicting emotions in customer feedback to derive a more nuanced sentiment score.
+
+[5-fold cross-validation]:
+A technique to evaluate model performance by splitting the data into 5 parts. The model trains on 4 parts and tests on the remaining 1, repeating this 5 times to reduce overfitting and ensure robust performance metrics.
+
+[(RMSE, MAE, R2)]:
+These are common metrics for evaluating regression models. RMSE (Root Mean Square Error) measures prediction accuracy, MAE (Mean Absolute Error) measures error magnitude, and R² indicates the proportion of variance in the target explained by the model.
+
+[Silhouette Score: 0.08478412337466534]:
+The Silhouette Score measures how well data points are clustered. A score close to +1 indicates that data points are well-clustered, while values near 0 suggest overlapping clusters. A score of 0.084 suggests that the clustering may not be strong.

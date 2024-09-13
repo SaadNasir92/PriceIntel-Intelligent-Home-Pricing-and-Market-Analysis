@@ -163,3 +163,5 @@ cython_debug/
 gpt-context.txt
 features.txt
 data/claude
+talking_points.txt
+presentation.txt
