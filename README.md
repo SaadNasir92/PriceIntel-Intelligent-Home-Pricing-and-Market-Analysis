@@ -119,9 +119,19 @@ class DataPreprocessor:
 ![Elbow plot](outputs/readme/elbow_method.png)
 *Elbow plot*
 
-### 5. FIGMA Prototype (replacing Interactive UI)
+### 5. FIGMA Prototype
 - **Key Decision**: Shifted from full-fledged UI development to a FIGMA prototype due to time constraints and the proof-of-concept nature of the project
 - **Purpose**: To demonstrate the potential of an interactive tool for price predictions and market segment insights
+
+![Price Prediction](outputs/readme/price_prediction.png)
+*Price Prediction*
+
+![Cluster Prediction](outputs/readme/cluster_prediction.png)
+*Cluster Prediction*
+
+![Cluster Analysis](outputs/readme/cluster_analysis.png)
+*Cluster Analysis*
+
 
 ## Key Learnings and Future Directions
 
